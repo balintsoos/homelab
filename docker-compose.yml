@@ -1,0 +1,106 @@
+# Guides:
+# https://trash-guides.info/
+# https://wiki.servarr.com/docker-guide
+
+# Folder structure:
+# docker
+# └── appdata
+#     ├── jellyfin
+#     ├── radarr
+#     ├── sonarr
+#     ├── prowlarr
+#     ├── qbittorrent
+#     └── homarr
+# data
+# ├── torrents
+# │   ├── movies
+# │   └── tv
+# └── media
+#     ├── movies
+#     └── tv
+---
+version: "3.5"
+
+name: homelab
+
+services:
+  jellyfin:
+    image: ghcr.io/hotio/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Budapest
+    volumes:
+      - /docker/appdata/jellyfin:/config
+      - /data/media:/data/media
+    ports:
+      - 8096:8096
+    restart: unless-stopped
+
+  radarr:
+    image: ghcr.io/hotio/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Budapest
+    volumes:
+      - /docker/appdata/radarr:/config
+      - /data:/data
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  sonarr:
+    image: ghcr.io/hotio/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Budapest
+    volumes:
+      - /docker/appdata/sonarr:/config
+      - /data:/data
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  prowlarr:
+    image: ghcr.io/hotio/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Budapest
+    volumes:
+      - /docker/appdata/prowlarr:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+  qbittorrent:
+    image: ghcr.io/hotio/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Budapest
+      - WEBUI_PORTS=8080/tcp,8080/udp
+    volumes:
+      - /docker/appdata/qbittorrent:/config
+      - /data/torrents:/data/torrents
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+
+  homarr:
+    image: ghcr.io/ajnart/homarr:latest
+    container_name: homarr
+    volumes:
+      - /docker/appdata/homarr/configs:/app/data/configs
+      - /docker/appdata/homarr/icons:/app/public/icons
+      - /docker/appdata/homarr/data:/data
+    ports:
+      - 7575:7575
+    restart: unless-stopped
