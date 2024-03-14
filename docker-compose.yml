@@ -15,7 +15,7 @@ services:
       - /docker/appdata/jellyfin:/config
       - /data/media:/data/media
     ports:
-      - 8096:8096
+      - "8096:8096"
     restart: unless-stopped
 
   radarr:
@@ -29,7 +29,7 @@ services:
       - /docker/appdata/radarr:/config
       - /data:/data
     ports:
-      - 7878:7878
+      - "7878:7878"
     restart: unless-stopped
 
   sonarr:
@@ -43,7 +43,7 @@ services:
       - /docker/appdata/sonarr:/config
       - /data:/data
     ports:
-      - 8989:8989
+      - "8989:8989"
     restart: unless-stopped
 
   prowlarr:
@@ -56,7 +56,7 @@ services:
     volumes:
       - /docker/appdata/prowlarr:/config
     ports:
-      - 9696:9696
+      - "9696:9696"
     restart: unless-stopped
 
   qbittorrent:
@@ -71,7 +71,7 @@ services:
       - /docker/appdata/qbittorrent:/config
       - /data/torrents:/data/torrents
     ports:
-      - 8080:8080
+      - "8080:8080"
     restart: unless-stopped
 
   homarr:
@@ -82,7 +82,7 @@ services:
       - /docker/appdata/homarr/icons:/app/public/icons
       - /docker/appdata/homarr/data:/data
     ports:
-      - 7575:7575
+      - "7575:7575"
     restart: unless-stopped
 
   jellyseerr:
@@ -95,5 +95,5 @@ services:
     volumes:
       - /docker/appdata/jellyseerr:/config
     ports:
-      - 5055:5055
+      - "5055:5055"
     restart: unless-stopped
