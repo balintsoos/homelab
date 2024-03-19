@@ -102,6 +102,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
+      - TZ=Europe/Budapest
     volumes:
       - /docker/appdata/nginx-proxy-manager/data:/data
       - /docker/appdata/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
