@@ -12,6 +12,7 @@ My containerized home server setup
 - [qBittorrent](https://www.qbittorrent.org/)
 - [Nginx Proxy Manager](https://nginxproxymanager.com/)
 - [Homarr](https://homarr.dev/)
+- [Watchtower](https://containrrr.dev/watchtower/)
 
 ## Useful links
 
