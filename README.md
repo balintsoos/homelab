@@ -12,6 +12,7 @@ My containerized home server setup
 - [qBittorrent](https://www.qbittorrent.org/)
 - [Nginx Proxy Manager](https://nginxproxymanager.com/)
 - [Homarr](https://homarr.dev/)
+- [WireGuard Easy](https://github.com/wg-easy/wg-easy)
 - [Watchtower](https://containrrr.dev/watchtower/)
 
 ## Useful links
@@ -38,5 +39,6 @@ My containerized home server setup
     ├── prowlarr
     ├── qbittorrent
     ├── radarr
-    └── sonarr
+    ├── sonarr
+    └── wg-easy
 ```
