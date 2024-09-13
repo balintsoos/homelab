@@ -19,6 +19,7 @@ My containerized home server setup
 
 - https://trash-guides.info/
 - https://wiki.servarr.com/docker-guide
+- https://jellyfin.org/docs/general/administration/hardware-acceleration/intel/#official-docker
 
 ## Folder structure
 

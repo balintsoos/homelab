@@ -9,11 +9,15 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Budapest
+    group_add:
+      - "105" # result of "getent group render | cut -d: -f3"
     volumes:
       - /docker/appdata/jellyfin:/config
       - /data/media:/data/media
     ports:
       - "8096:8096"
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
     restart: unless-stopped
 
   radarr:
