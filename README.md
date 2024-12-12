@@ -2,6 +2,12 @@
 
 My containerized home server setup
 
+## Requirements
+
+- a computer where you will run your server
+- an operating system, preferably a linux distro, like ubuntu or debian
+- Docker Engine installed
+
 ## Services
 
 - [Jellyfin](https://jellyfin.org/)
@@ -23,6 +29,8 @@ My containerized home server setup
 - https://jellyfin.org/docs/general/administration/hardware-acceleration/intel/#official-docker
 
 ## Folder structure
+
+Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structure/)
 
 ```
 /data
