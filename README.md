@@ -13,6 +13,7 @@ My containerized home server setup
 - [Nginx Proxy Manager](https://nginxproxymanager.com/)
 - [Homarr](https://homarr.dev/)
 - [WireGuard Easy](https://github.com/wg-easy/wg-easy)
+- [DuckDNS](https://github.com/linuxserver/docker-duckdns)
 - [Watchtower](https://containrrr.dev/watchtower/)
 
 ## Useful links
@@ -33,6 +34,7 @@ My containerized home server setup
     └── tv
 /docker
 └── appdata
+    ├── duckdns
     ├── homarr
     ├── jellyfin
     ├── jellyseerr
