@@ -121,7 +121,7 @@ services:
     container_name: wg-easy
     environment:
       - WG_HOST=yourpublichost
-      - PASSWORD=yourpassword
+      - PASSWORD_HASH=yourpasswordhash
     volumes:
       - /docker/appdata/wg-easy:/etc/wireguard
     ports:
