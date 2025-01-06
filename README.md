@@ -24,6 +24,7 @@ My containerized home server setup
 
 ## Useful links
 
+- https://github.com/Ravencentric/awesome-arr
 - https://trash-guides.info/
 - https://wiki.servarr.com/docker-guide
 - https://jellyfin.org/docs/general/administration/hardware-acceleration/intel/#official-docker
