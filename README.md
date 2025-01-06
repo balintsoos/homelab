@@ -34,23 +34,24 @@ My containerized home server setup
 Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structure/)
 
 ```
-/data
-├── media
-│   ├── movies
-│   └── tv
-└── torrents
-    ├── movies
-    └── tv
-/docker
-└── appdata
-    ├── duckdns
-    ├── homarr
-    ├── jellyfin
-    ├── jellyseerr
-    ├── nginx-proxy-manager
-    ├── prowlarr
-    ├── qbittorrent
-    ├── radarr
-    ├── sonarr
-    └── wg-easy
+.
+├── data
+│   ├── media
+│   │   ├── movies
+│   │   └── tv
+│   └── torrents
+│       ├── movies
+│       └── tv
+└── docker
+    └── appdata
+        ├── duckdns
+        ├── homarr
+        ├── jellyfin
+        ├── jellyseerr
+        ├── nginx-proxy-manager
+        ├── prowlarr
+        ├── qbittorrent
+        ├── radarr
+        ├── sonarr
+        └── wg-easy
 ```
