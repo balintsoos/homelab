@@ -4,9 +4,8 @@ My containerized home server setup
 
 ## Requirements
 
-- a computer where you will run your server
-- an operating system, preferably a linux distro, like ubuntu or debian
-- Docker Engine installed
+- Linux
+- Docker Engine
 
 ## Services
 
