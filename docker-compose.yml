@@ -159,3 +159,25 @@ services:
       - WATCHTOWER_SCHEDULE=0 0 4 * * *
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  beszel-hub:
+    image: henrygd/beszel:latest
+    container_name: beszel-hub
+    volumes:
+      - /docker/appdata/beszel-hub:/beszel_data
+    ports:
+      - "8090:8090"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    restart: unless-stopped
+
+  beszel-agent:
+    image: henrygd/beszel-agent:latest
+    container_name: beszel-agent
+    environment:
+      PORT: 45876
+      KEY: "your public key"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    network_mode: host
+    restart: unless-stopped

@@ -20,6 +20,7 @@ My containerized home server setup
 - [WireGuard Easy](https://github.com/wg-easy/wg-easy)
 - [DuckDNS](https://github.com/linuxserver/docker-duckdns)
 - [Watchtower](https://containrrr.dev/watchtower/)
+- [Beszel](https://beszel.dev/)
 
 ## Useful links
 
@@ -43,14 +44,11 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
 │       └── tv
 └── docker
     └── appdata
-        ├── duckdns
-        ├── homarr
         ├── jellyfin
         ├── jellyseerr
-        ├── nginx-proxy-manager
         ├── prowlarr
         ├── qbittorrent
         ├── radarr
         ├── sonarr
-        └── wg-easy
+        └── ...
 ```
