@@ -15,7 +15,6 @@ My containerized home server setup
 - [Sonarr](https://sonarr.tv/)
 - [Prowlarr](https://prowlarr.com/)
 - [qBittorrent](https://www.qbittorrent.org/)
-- [Nginx Proxy Manager](https://nginxproxymanager.com/)
 - [Homarr](https://homarr.dev/)
 - [WireGuard Easy](https://github.com/wg-easy/wg-easy)
 - [DuckDNS](https://github.com/linuxserver/docker-duckdns)
@@ -45,7 +44,6 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
 └── docker
     └── appdata
         ├── jellyfin
-        ├── jellyseerr
         ├── prowlarr
         ├── qbittorrent
         ├── radarr
