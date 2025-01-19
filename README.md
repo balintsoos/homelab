@@ -10,16 +10,17 @@ My containerized home server setup
 ## Services
 
 - [Jellyfin](https://jellyfin.org/)
-- [Jellyseerr](https://github.com/Fallenbagel/jellyseerr)
 - [Radarr](https://radarr.video/)
 - [Sonarr](https://sonarr.tv/)
 - [Prowlarr](https://prowlarr.com/)
 - [qBittorrent](https://www.qbittorrent.org/)
+- [Jellyseerr](https://github.com/Fallenbagel/jellyseerr)
 - [Homarr](https://homarr.dev/)
 - [WireGuard Easy](https://github.com/wg-easy/wg-easy)
 - [DuckDNS](https://github.com/linuxserver/docker-duckdns)
 - [Watchtower](https://containrrr.dev/watchtower/)
 - [Beszel](https://beszel.dev/)
+- [AdGuard Home](https://adguard.com/en/adguard-home/overview.html)
 
 ## Useful links
 
