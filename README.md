@@ -17,7 +17,6 @@ My containerized home server setup
 - [Jellyseerr](https://github.com/Fallenbagel/jellyseerr)
 - [Homarr](https://homarr.dev/)
 - [WireGuard Easy](https://github.com/wg-easy/wg-easy)
-- [DuckDNS](https://github.com/linuxserver/docker-duckdns)
 - [Watchtower](https://containrrr.dev/watchtower/)
 - [Beszel](https://beszel.dev/)
 - [AdGuard Home](https://adguard.com/en/adguard-home/overview.html)
