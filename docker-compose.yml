@@ -10,7 +10,7 @@ services:
       - PGID=1000
       - TZ=Europe/Budapest
     group_add:
-      - "105" # result of "getent group render | cut -d: -f3"
+      - ${JELLYFIN_RENDER_GROUP}
     volumes:
       - /docker/appdata/jellyfin:/config
       - /data/media:/data/media
@@ -104,8 +104,8 @@ services:
     image: ghcr.io/wg-easy/wg-easy:latest
     container_name: wg-easy
     environment:
-      - WG_HOST=yourpublichost
-      - PASSWORD_HASH=yourpasswordhash
+      - WG_HOST=${WG_HOST}
+      - PASSWORD_HASH=${WG_ADMIN_PASSWORD_HASH}
     volumes:
       - /docker/appdata/wg-easy:/etc/wireguard
     ports:
@@ -147,7 +147,7 @@ services:
     container_name: beszel-agent
     environment:
       PORT: 45876
-      KEY: "your public key"
+      KEY: ${BESZEL_KEY}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     network_mode: host
