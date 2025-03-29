@@ -4,7 +4,6 @@ My containerized home server setup
 
 ## Requirements
 
-- Linux
 - Docker Engine
 
 ## Services
