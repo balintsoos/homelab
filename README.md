@@ -19,6 +19,7 @@ My containerized home server setup
 - [Watchtower](https://containrrr.dev/watchtower/)
 - [Beszel](https://beszel.dev/)
 - [AdGuard Home](https://adguard.com/en/adguard-home/overview.html)
+- [Nginx Proxy Manager](https://nginxproxymanager.com/)
 
 ## Useful links
 
