@@ -20,6 +20,7 @@ My containerized home server setup
 - [Beszel](https://beszel.dev/)
 - [AdGuard Home](https://adguard.com/en/adguard-home/overview.html)
 - [Nginx Proxy Manager](https://nginxproxymanager.com/)
+- [Cloudflare DDNS](https://github.com/timothymiller/cloudflare-ddns)
 
 ## Useful links
 
