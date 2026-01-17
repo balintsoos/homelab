@@ -159,6 +159,7 @@ services:
     volumes:
       - /docker/appdata/adguard/work:/opt/adguardhome/work
       - /docker/appdata/adguard/conf:/opt/adguardhome/conf
+    network_mode: host
     ports:
       - "53:53/tcp"
       - "53:53/udp"
