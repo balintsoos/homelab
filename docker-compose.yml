@@ -5,7 +5,6 @@ services:
   jellyfin:
     image: ghcr.io/hotio/jellyfin:latest
     container_name: jellyfin
-    user: "${PUID}:${PGID}"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -24,7 +23,6 @@ services:
   radarr:
     image: ghcr.io/hotio/radarr:latest
     container_name: radarr
-    user: "${PUID}:${PGID}"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -39,7 +37,6 @@ services:
   sonarr:
     image: ghcr.io/hotio/sonarr:latest
     container_name: sonarr
-    user: "${PUID}:${PGID}"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -54,7 +51,6 @@ services:
   prowlarr:
     image: ghcr.io/hotio/prowlarr:latest
     container_name: prowlarr
-    user: "${PUID}:${PGID}"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -68,7 +64,6 @@ services:
   qbittorrent:
     image: ghcr.io/hotio/qbittorrent:latest
     container_name: qbittorrent
-    user: "${PUID}:${PGID}"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -96,7 +91,6 @@ services:
   jellyseerr:
     image: ghcr.io/hotio/jellyseerr:latest
     container_name: jellyseerr
-    user: "${PUID}:${PGID}"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -186,7 +180,6 @@ services:
   cloudflare-ddns:
     image: timothyjmiller/cloudflare-ddns:latest
     container_name: cloudflare-ddns
-    user: "${PUID}:${PGID}"
     security_opt:
       - no-new-privileges:true
     environment:
