@@ -35,10 +35,8 @@ Run `docker --version` and `docker compose version`.
 Create host directories that are mounted by the containers (adjust paths if you prefer a different root):
 
 ```bash
-mkdir -p /data/media/movies /data/media/tv
-mkdir -p /data/torrents/movies /data/torrents/tv
+mkdir -p /data/{media,torrents}/{movies,tv}
 mkdir -p /docker/appdata/{jellyfin,prowlarr,qbittorrent,radarr,sonarr,homarr,jellyseerr,wg-easy,beszel-hub,adguard,nginx-proxy-manager}
-mkdir -p /docker
 ```
 
 3) Configure environment
