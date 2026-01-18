@@ -5,10 +5,11 @@ services:
   jellyfin:
     image: ghcr.io/hotio/jellyfin:latest
     container_name: jellyfin
+    user: "${PUID}:${PGID}"
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Budapest
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     group_add:
       - ${JELLYFIN_RENDER_GROUP}
     volumes:
@@ -23,10 +24,11 @@ services:
   radarr:
     image: ghcr.io/hotio/radarr:latest
     container_name: radarr
+    user: "${PUID}:${PGID}"
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Budapest
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
       - /docker/appdata/radarr:/config
       - /data:/data
@@ -37,10 +39,11 @@ services:
   sonarr:
     image: ghcr.io/hotio/sonarr:latest
     container_name: sonarr
+    user: "${PUID}:${PGID}"
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Budapest
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
       - /docker/appdata/sonarr:/config
       - /data:/data
@@ -51,10 +54,11 @@ services:
   prowlarr:
     image: ghcr.io/hotio/prowlarr:latest
     container_name: prowlarr
+    user: "${PUID}:${PGID}"
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Budapest
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
       - /docker/appdata/prowlarr:/config
     ports:
@@ -64,10 +68,11 @@ services:
   qbittorrent:
     image: ghcr.io/hotio/qbittorrent:latest
     container_name: qbittorrent
+    user: "${PUID}:${PGID}"
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Budapest
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
       - WEBUI_PORTS=8080/tcp,8080/udp
     volumes:
       - /docker/appdata/qbittorrent:/config
@@ -79,6 +84,7 @@ services:
   homarr:
     image: ghcr.io/ajnart/homarr:latest
     container_name: homarr
+    user: "${PUID}:${PGID}"
     volumes:
       - /docker/appdata/homarr/configs:/app/data/configs
       - /docker/appdata/homarr/icons:/app/public/icons
@@ -90,10 +96,11 @@ services:
   jellyseerr:
     image: ghcr.io/hotio/jellyseerr:latest
     container_name: jellyseerr
+    user: "${PUID}:${PGID}"
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Budapest
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
       - /docker/appdata/jellyseerr:/config
     ports:
@@ -123,8 +130,6 @@ services:
     image: containrrr/watchtower:latest
     container_name: watchtower
     environment:
-      - PUID=1000
-      - PGID=1000
       - TZ=Europe/Budapest
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_SCHEDULE=0 0 4 * * *
@@ -181,11 +186,12 @@ services:
   cloudflare-ddns:
     image: timothyjmiller/cloudflare-ddns:latest
     container_name: cloudflare-ddns
+    user: "${PUID}:${PGID}"
     security_opt:
       - no-new-privileges:true
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=${PUID}
+      - PGID=${PGID}
       - CF_DDNS_API_TOKEN=${CF_DDNS_API_TOKEN}
       - CF_DDNS_ZONE_ID=${CF_DDNS_ZONE_ID}
       - CF_DDNS_SUBDOMAIN=${CF_DDNS_SUBDOMAIN}
