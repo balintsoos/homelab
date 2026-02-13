@@ -105,7 +105,7 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
 
 ```
 /
-├── data/                                   # Media and downloads
+├── data/                                  # Media and downloads
 │   ├── media/                             # Organized media library
 │   │   ├── movies/                        # Movies for Jellyfin
 │   │   └── tv/                            # TV shows for Jellyfin
