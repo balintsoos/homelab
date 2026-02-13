@@ -101,24 +101,33 @@ Watchtower runs automatic updates every day at 04:00 and cleans up old images. Y
 
 ## Folder structure
 
-Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structure/)
+Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structure/How-to-set-up/Docker/)
 
 ```
 /
-├── data/
-│   ├── media/
-│   │   ├── movies/
-│   │   └── tv/
-│   └── torrents/
-│       ├── movies/
-│       └── tv/
-└── docker/
-    ├── .env
-    ├── cloudflare-ddns-config.json
-    ├── docker-compose.yml
-    └── appdata/
-        ├── jellyfin/
-        ├── radarr/
-        ├── sonarr/
-        └── etc.
+├── data/                                   # Media and downloads
+│   ├── media/                             # Organized media library
+│   │   ├── movies/                        # Movies for Jellyfin
+│   │   └── tv/                            # TV shows for Jellyfin
+│   └── torrents/                          # Download staging area
+│       ├── movies/                        # Movie downloads
+│       └── tv/                            # TV show downloads
+│
+└── docker/                                # Docker stack configuration
+    ├── .env                               # Environment variables
+    ├── cloudflare-ddns-config.json        # DDNS configuration
+    ├── docker-compose.yml                 # Main compose file
+    │
+    └── appdata/                           # Container persistent data
+        ├── adguard/                       # AdGuard Home config
+        ├── beszel-hub/                    # Beszel monitoring data
+        ├── homarr/                        # Homarr dashboard config
+        ├── jellyfin/                      # Jellyfin media server data
+        ├── jellyseerr/                    # Jellyseerr request data
+        ├── nginx-proxy-manager/           # NPM proxy config
+        ├── prowlarr/                      # Prowlarr indexer config
+        ├── qbittorrent/                   # qBittorrent settings
+        ├── radarr/                        # Radarr movie automation
+        ├── sonarr/                        # Sonarr TV automation
+        └── wg-easy/                       # WireGuard VPN config
 ```
