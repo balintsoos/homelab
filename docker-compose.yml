@@ -208,3 +208,30 @@ services:
     group_add:
       - ${ZIGBEE_ADAPTER_GROUP}
     restart: unless-stopped
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    user: "${PUID}:${PGID}"
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - /docker/appdata/mosquitto/config:/mosquitto/config
+      - /docker/appdata/mosquitto/data:/mosquitto/data
+      - /docker/appdata/mosquitto/log:/mosquitto/log
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    restart: unless-stopped
+
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    user: "${PUID}:${PGID}"
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - /docker/appdata/homeassistant:/config
+    ports:
+      - "8123:8123"
+    restart: unless-stopped

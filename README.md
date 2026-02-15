@@ -18,6 +18,8 @@ Containerized home server stack with media management, VPN, DNS filtering, rever
 - [Nginx Proxy Manager](https://nginxproxymanager.com/) - Reverse proxy + SSL
 - [Cloudflare DDNS](https://github.com/timothymiller/cloudflare-ddns) - Keeps DNS A record updated
 - [Zigbee2MQTT](https://www.zigbee2mqtt.io/) - Zigbee to MQTT bridge for smart home devices
+- [Mosquitto](https://mosquitto.org/) - MQTT message broker
+- [Home Assistant](https://www.home-assistant.io/) - Home automation platform
 
 ## Requirements
 
@@ -37,7 +39,7 @@ Create host directories that are mounted by the containers (adjust paths if you 
 
 ```bash
 mkdir -p /data/{media,torrents}/{movies,tv}
-mkdir -p /docker/appdata/{jellyfin,prowlarr,qbittorrent,radarr,sonarr,homarr,jellyseerr,wg-easy,beszel-hub,adguard,nginx-proxy-manager,zigbee2mqtt}
+mkdir -p /docker/appdata/{jellyfin,prowlarr,qbittorrent,radarr,sonarr,homarr,jellyseerr,wg-easy,beszel-hub,adguard,nginx-proxy-manager,zigbee2mqtt,mosquitto,homeassistant}
 ```
 
 3) Configure environment
@@ -49,13 +51,22 @@ These are referenced by `docker-compose.yml` and should be defined in `.env`. Co
 - Place the DDNS config at `/docker/cloudflare-ddns-config.json` (or adjust the volume path in compose). A template is provided in this repo.
 - Ensure the `.env` values for Cloudflare are correct and have permissions to edit DNS records.
 
-5) Start the stack
+5) Mosquitto MQTT Broker
+
+- Copy the Mosquitto config: `cp mosquitto.conf /docker/appdata/mosquitto/config/mosquitto.conf`
+- Ensure zigbee2mqtt is configured to use the MQTT broker by editing `/docker/appdata/zigbee2mqtt/configuration.yaml`:
+  ```yaml
+  mqtt:
+    server: mqtt://mosquitto:1883
+  ```
+
+6) Start the stack
 
 ```bash
 docker compose up -d
 ```
 
-6) Set up and test services
+7) Set up and test services
 
 - Jellyfin: http://localhost:8096
 - Radarr: http://localhost:7878
@@ -69,6 +80,7 @@ docker compose up -d
 - AdGuard Home: http://localhost:3000
 - Nginx Proxy Manager: http://localhost:81
 - Zigbee2MQTT: http://localhost:8081
+- Home Assistant: http://localhost:8123
 
 ## Troubleshooting
 
@@ -124,5 +136,7 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
         ├── radarr/                        # Radarr movie automation
         ├── sonarr/                        # Sonarr TV automation
         ├── wg-easy/                       # WireGuard VPN config
-        └── zigbee2mqtt/                   # Zigbee2MQTT config and database
+        ├── zigbee2mqtt/                   # Zigbee2MQTT config and database
+        ├── mosquitto/                     # Mosquitto MQTT broker config
+        └── homeassistant/                 # Home Assistant configuration
 ```
