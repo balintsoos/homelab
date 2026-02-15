@@ -189,7 +189,7 @@ services:
       - CF_DDNS_ZONE_ID=${CF_DDNS_ZONE_ID}
       - CF_DDNS_SUBDOMAIN=${CF_DDNS_SUBDOMAIN}
     volumes:
-      - /docker/cloudflare-ddns-config.json:/config.json
+      - /docker/appdata/cloudflare-ddns/config.json:/config.json
     restart: unless-stopped
 
   zigbee2mqtt:

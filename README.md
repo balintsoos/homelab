@@ -33,40 +33,41 @@ Containerized home server stack with media management, VPN, DNS filtering, rever
 
 Run `docker --version` and `docker compose version`.
 
-2) Prepare folders
+2) Configure environment
 
-Create host directories that are mounted by the containers (adjust paths if you prefer a different root):
+Environment variables are referenced by `docker-compose.yml` and should be defined in `.env`. Copy `env.template` to `.env` and fill the values. You can find more details in the template file. 
+
+3) Prepare folders
+
+Create host directories that are mounted by the containers. Adjust paths if you prefer a different root.
+
+Create directories for media files and torrents:
 
 ```bash
 mkdir -p /data/{media,torrents}/{movies,tv}
-mkdir -p /docker/appdata/{jellyfin,prowlarr,qbittorrent,radarr,sonarr,homarr,jellyseerr,wg-easy,beszel-hub,adguard,nginx-proxy-manager,zigbee2mqtt,mosquitto,homeassistant}
 ```
 
-3) Configure environment
+Create directories for application data and configurations:
 
-These are referenced by `docker-compose.yml` and should be defined in `.env`. Copy `env.template` to `.env` and fill the values. You can find more details in the template file. 
+```bash
+mkdir -p /docker/appdata/{jellyfin,radarr,sonarr,prowlarr,qbittorrent,homarr/{configs,icons,data},jellyseerr,wg-easy,beszel-hub,adguard/{work,conf},nginx-proxy-manager/{data,letsencrypt},cloudflare-ddns,zigbee2mqtt,mosquitto/{config,data,log},homeassistant}
+```
 
-4) Cloudflare DDNS
+4) Copy default configurations
 
-- Place the DDNS config at `/docker/cloudflare-ddns-config.json` (or adjust the volume path in compose). A template is provided in this repo.
-- Ensure the `.env` values for Cloudflare are correct and have permissions to edit DNS records.
+Copy the default config files from the `defaults/` folder to the `appdata/` directory:
 
-5) Mosquitto MQTT Broker
+```bash
+cp -r defaults/* /docker/appdata/
+```
 
-- Copy the Mosquitto config: `cp mosquitto.conf /docker/appdata/mosquitto/config/mosquitto.conf`
-- Ensure zigbee2mqtt is configured to use the MQTT broker by editing `/docker/appdata/zigbee2mqtt/configuration.yaml`:
-  ```yaml
-  mqtt:
-    server: mqtt://mosquitto:1883
-  ```
-
-6) Start the stack
+5) Start the stack
 
 ```bash
 docker compose up -d
 ```
 
-7) Set up and test services
+6) Set up and test services
 
 - Jellyfin: http://localhost:8096
 - Radarr: http://localhost:7878
@@ -120,23 +121,28 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
 │
 └── docker/                                # Docker stack configuration
     ├── .env                               # Environment variables
-    ├── env.template                       # Environment variables template
-    ├── cloudflare-ddns-config.json        # DDNS configuration
     ├── docker-compose.yml                 # Main compose file
+    ├── env.template                       # Environment variables template
     │
-    └── appdata/                           # Container persistent data
-        ├── adguard/                       # AdGuard Home config
-        ├── beszel-hub/                    # Beszel monitoring data
-        ├── homarr/                        # Homarr dashboard config
-        ├── jellyfin/                      # Jellyfin media server data
-        ├── jellyseerr/                    # Jellyseerr request data
-        ├── nginx-proxy-manager/           # NPM proxy config
-        ├── prowlarr/                      # Prowlarr indexer config
-        ├── qbittorrent/                   # qBittorrent settings
-        ├── radarr/                        # Radarr movie automation
-        ├── sonarr/                        # Sonarr TV automation
-        ├── wg-easy/                       # WireGuard VPN config
-        ├── zigbee2mqtt/                   # Zigbee2MQTT config and database
-        ├── mosquitto/                     # Mosquitto MQTT broker config
-        └── homeassistant/                 # Home Assistant configuration
+    ├── appdata/                           # Container persistent data
+    │   ├── adguard/                       # AdGuard Home config
+    │   ├── beszel-hub/                    # Beszel monitoring data
+    │   ├── cloudflare-ddns/               # Cloudflare DDNS config
+    │   ├── homeassistant/                 # Home Assistant configuration
+    │   ├── homarr/                        # Homarr dashboard config
+    │   ├── jellyfin/                      # Jellyfin media server data
+    │   ├── jellyseerr/                    # Jellyseerr request data
+    │   ├── mosquitto/                     # Mosquitto MQTT broker config
+    │   ├── nginx-proxy-manager/           # NPM proxy config
+    │   ├── prowlarr/                      # Prowlarr indexer config
+    │   ├── qbittorrent/                   # qBittorrent settings
+    │   ├── radarr/                        # Radarr movie automation
+    │   ├── sonarr/                        # Sonarr TV automation
+    │   ├── wg-easy/                       # WireGuard VPN config
+    │   └── zigbee2mqtt/                   # Zigbee2MQTT config and database
+    │
+    └── defaults/                          # Default configuration templates
+        ├── cloudflare-ddns/               # Cloudflare DDNS config template
+        ├── mosquitto/                     # Mosquitto MQTT config template
+        └── zigbee2mqtt/                   # Zigbee2MQTT config template
 ```
