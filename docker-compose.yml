@@ -204,7 +204,7 @@ services:
     ports:
       - "8081:8080"
     devices:
-      - ${ZIGBEE_ADAPTER_PATH}:/dev/ttyACM0
+      - ${ZIGBEE_ADAPTER_PATH}:${ZIGBEE_ADAPTER_PATH}
     group_add:
       - ${ZIGBEE_ADAPTER_GROUP}
     restart: unless-stopped
