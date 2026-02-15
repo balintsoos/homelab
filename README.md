@@ -17,6 +17,7 @@ Containerized home server stack with media management, VPN, DNS filtering, rever
 - [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) - DNS filtering
 - [Nginx Proxy Manager](https://nginxproxymanager.com/) - Reverse proxy + SSL
 - [Cloudflare DDNS](https://github.com/timothymiller/cloudflare-ddns) - Keeps DNS A record updated
+- [Zigbee2MQTT](https://www.zigbee2mqtt.io/) - Zigbee to MQTT bridge for smart home devices
 
 ## Requirements
 
@@ -36,22 +37,12 @@ Create host directories that are mounted by the containers (adjust paths if you 
 
 ```bash
 mkdir -p /data/{media,torrents}/{movies,tv}
-mkdir -p /docker/appdata/{jellyfin,prowlarr,qbittorrent,radarr,sonarr,homarr,jellyseerr,wg-easy,beszel-hub,adguard,nginx-proxy-manager}
+mkdir -p /docker/appdata/{jellyfin,prowlarr,qbittorrent,radarr,sonarr,homarr,jellyseerr,wg-easy,beszel-hub,adguard,nginx-proxy-manager,zigbee2mqtt}
 ```
 
 3) Configure environment
 
-These are referenced by `docker-compose.yml` and should be defined in `.env`. Copy `.env.template` to `.env` and fill these values: 
-
-- `PUID`, `PGID`: container user/group IDs for file permissions
-- `TZ`: timezone (e.g., `Europe/Budapest`)
-- `JELLYFIN_RENDER_GROUP`: render group id for Jellyfin VAAPI (Linux)
-- `WG_HOST`: public hostname for WireGuard Easy
-- `WG_ADMIN_PASSWORD_HASH`: hashed admin password (see wg-easy docs)
-- `BESZEL_KEY`: key for Beszel agent to connect to hub
-- `CF_DDNS_API_TOKEN`: Cloudflare API token (DNS edit scope)
-- `CF_DDNS_ZONE_ID`: Cloudflare Zone ID
-- `CF_DDNS_SUBDOMAIN`: Subdomain to update (e.g., `vpn`)
+These are referenced by `docker-compose.yml` and should be defined in `.env`. Copy `env.template` to `.env` and fill the values. You can find more details in the template file. 
 
 4) Cloudflare DDNS
 
@@ -77,6 +68,7 @@ docker compose up -d
 - Beszel Hub: http://localhost:8090
 - AdGuard Home: http://localhost:3000
 - Nginx Proxy Manager: http://localhost:81
+- Zigbee2MQTT: http://localhost:8081
 
 ## Troubleshooting
 
@@ -87,6 +79,7 @@ docker compose up -d
 - Reverse proxy: NPM listens on 80/443; configure your domain and SSL certificates there. Pair with Cloudflare DNS for external access.
 - Cloudflare DDNS not updating: Confirm token scope, zone id, and that the mounted config file path matches the compose volume.
 - WireGuard admin login: Ensure `WG_ADMIN_PASSWORD_HASH` is valid; consult wg-easy documentation for generating hashes.
+- Zigbee2MQTT not starting: Verify your Zigbee adapter path with `ls -l /dev/serial/by-id/` or `ls /dev/ttyUSB*` and update `ZIGBEE_ADAPTER_PATH` in `.env`. You may need to add your user to the `dialout` group: `sudo usermod -aG dialout $USER`.
 
 ## Maintenance
 
@@ -115,6 +108,7 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
 │
 └── docker/                                # Docker stack configuration
     ├── .env                               # Environment variables
+    ├── env.template                       # Environment variables template
     ├── cloudflare-ddns-config.json        # DDNS configuration
     ├── docker-compose.yml                 # Main compose file
     │
@@ -129,5 +123,6 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
         ├── qbittorrent/                   # qBittorrent settings
         ├── radarr/                        # Radarr movie automation
         ├── sonarr/                        # Sonarr TV automation
-        └── wg-easy/                       # WireGuard VPN config
+        ├── wg-easy/                       # WireGuard VPN config
+        └── zigbee2mqtt/                   # Zigbee2MQTT config and database
 ```

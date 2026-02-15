@@ -191,3 +191,20 @@ services:
     volumes:
       - /docker/cloudflare-ddns-config.json:/config.json
     restart: unless-stopped
+
+  zigbee2mqtt:
+    image: ghcr.io/koenkk/zigbee2mqtt:latest
+    container_name: zigbee2mqtt
+    user: "${PUID}:${PGID}"
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - /docker/appdata/zigbee2mqtt:/app/data
+      - /run/udev:/run/udev:ro
+    ports:
+      - "8081:8080"
+    devices:
+      - ${ZIGBEE_ADAPTER_PATH}:/dev/ttyACM0
+    group_add:
+      - ${ZIGBEE_ADAPTER_GROUP}
+    restart: unless-stopped
