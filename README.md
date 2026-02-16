@@ -12,7 +12,7 @@ Containerized home server stack with media management, VPN, DNS filtering, rever
 - [Jellyseerr](https://github.com/Fallenbagel/jellyseerr) - Media requests
 - [Homarr](https://homarr.dev/) - Dashboard
 - [WireGuard Easy](https://github.com/wg-easy/wg-easy) - WireGuard VPN + UI
-- [Watchtower](https://containrrr.dev/watchtower/) - Automated updates
+- [Watchtower](https://watchtower.nickfedor.com/) - Automated updates
 - [Beszel](https://beszel.dev/) - Monitoring
 - [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) - DNS filtering
 - [Nginx Proxy Manager](https://nginxproxymanager.com/) - Reverse proxy + SSL
