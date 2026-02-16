@@ -33,6 +33,11 @@ Containerized home server stack with media management, VPN, DNS filtering, rever
 
 Run `docker --version` and `docker compose version`.
 
+Or use the Makefile:
+```bash
+make check-docker
+```
+
 2) Configure environment
 
 Environment variables are referenced by `docker-compose.yml` and should be defined in `.env`. Copy `env.template` to `.env` and fill the values. You can find more details in the template file. 
@@ -53,6 +58,11 @@ Create directories for application data and configurations:
 mkdir -p /docker/appdata/{jellyfin,radarr,sonarr,prowlarr,qbittorrent,homarr/{configs,icons,data},jellyseerr,wg-easy,beszel-hub,adguard/{work,conf},nginx-proxy-manager/{data,letsencrypt},cloudflare-ddns,zigbee2mqtt,mosquitto/{config,data,log},homeassistant}
 ```
 
+Or use the Makefile to create all directories at once:
+```bash
+make setup-dirs
+```
+
 4) Copy default configurations
 
 Copy the default config files from the `defaults/` folder to the `appdata/` directory:
@@ -61,11 +71,23 @@ Copy the default config files from the `defaults/` folder to the `appdata/` dire
 cp -r defaults/* /docker/appdata/
 ```
 
+Or use the Makefile:
+```bash
+make copy-defaults
+```
+
 5) Start the stack
 
 ```bash
 docker compose up -d
 ```
+
+Or use the Makefile:
+```bash
+make up
+```
+
+**Tip:** Run `make setup` to execute steps 1, 3, and 4 automatically, or run `make help` to see all available commands.
 
 6) Set up and test services
 
@@ -97,6 +119,17 @@ docker compose up -d
 ## Maintenance
 
 Watchtower runs automatic updates every day at 04:00 and cleans up old images. You can disable or change the schedule via environment variables.
+
+### Managing Services
+
+Use `docker compose` commands or the provided Makefile:
+
+- **View logs:** `docker compose logs -f` or `make logs`
+- **Check status:** `docker compose ps` or `make ps`
+- **Restart services:** `docker compose restart` or `make restart`
+- **Stop services:** `docker compose down` or `make down`
+
+Run `make help` to see all available commands.
 
 ## Useful links
 
