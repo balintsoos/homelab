@@ -88,15 +88,15 @@ services:
       - "7575:7575"
     restart: unless-stopped
 
-  jellyseerr:
-    image: ghcr.io/hotio/jellyseerr:latest
-    container_name: jellyseerr
+  seerr:
+    image: ghcr.io/hotio/seerr:latest
+    container_name: seerr
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /docker/appdata/jellyseerr:/config
+      - /docker/appdata/seerr:/config
     ports:
       - "5055:5055"
     restart: unless-stopped

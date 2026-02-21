@@ -9,7 +9,7 @@ Containerized home server stack with media management, VPN, DNS filtering, rever
 - [Sonarr](https://sonarr.tv/) - TV automation
 - [Prowlarr](https://prowlarr.com/) - Indexer management
 - [qBittorrent](https://www.qbittorrent.org/) - BitTorrent client
-- [Jellyseerr](https://github.com/Fallenbagel/jellyseerr) - Media requests
+- [Seerr](https://docs.seerr.dev/) - Media requests
 - [Homarr](https://homarr.dev/) - Dashboard
 - [WireGuard Easy](https://github.com/wg-easy/wg-easy) - WireGuard VPN + UI
 - [Watchtower](https://watchtower.nickfedor.com/) - Automated updates
@@ -55,7 +55,7 @@ mkdir -p /data/{media,torrents}/{movies,tv}
 Create directories for application data and configurations:
 
 ```bash
-mkdir -p /docker/appdata/{jellyfin,radarr,sonarr,prowlarr,qbittorrent,homarr/{configs,icons,data},jellyseerr,wg-easy,beszel-hub,adguard/{work,conf},nginx-proxy-manager/{data,letsencrypt},cloudflare-ddns,zigbee2mqtt,mosquitto/{config,data,log},homeassistant}
+mkdir -p /docker/appdata/{jellyfin,radarr,sonarr,prowlarr,qbittorrent,homarr/{configs,icons,data},seerr,wg-easy,beszel-hub,adguard/{work,conf},nginx-proxy-manager/{data,letsencrypt},cloudflare-ddns,zigbee2mqtt,mosquitto/{config,data,log},homeassistant}
 ```
 
 Or use the Makefile to create all directories at once:
@@ -96,7 +96,7 @@ make up
 - Sonarr: http://localhost:8989
 - Prowlarr: http://localhost:9696
 - qBittorrent: http://localhost:8080
-- Jellyseerr: http://localhost:5055
+- Seerr: http://localhost:5055
 - Homarr: http://localhost:7575
 - WireGuard Easy UI: http://localhost:51821
 - Beszel Hub: http://localhost:8090
@@ -164,7 +164,7 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
     │   ├── homeassistant/                 # Home Assistant configuration
     │   ├── homarr/                        # Homarr dashboard config
     │   ├── jellyfin/                      # Jellyfin media server data
-    │   ├── jellyseerr/                    # Jellyseerr request data
+    │   ├── seerr/                         # Seerr request data
     │   ├── mosquitto/                     # Mosquitto MQTT broker config
     │   ├── nginx-proxy-manager/           # NPM proxy config
     │   ├── prowlarr/                      # Prowlarr indexer config
