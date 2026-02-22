@@ -164,12 +164,12 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
     │   ├── homeassistant/                 # Home Assistant configuration
     │   ├── homarr/                        # Homarr dashboard config
     │   ├── jellyfin/                      # Jellyfin media server data
-    │   ├── seerr/                         # Seerr request data
     │   ├── mosquitto/                     # Mosquitto MQTT broker config
     │   ├── nginx-proxy-manager/           # NPM proxy config
     │   ├── prowlarr/                      # Prowlarr indexer config
     │   ├── qbittorrent/                   # qBittorrent settings
     │   ├── radarr/                        # Radarr movie automation
+    │   ├── seerr/                         # Seerr request data
     │   ├── sonarr/                        # Sonarr TV automation
     │   ├── wg-easy/                       # WireGuard VPN config
     │   └── zigbee2mqtt/                   # Zigbee2MQTT config and database
