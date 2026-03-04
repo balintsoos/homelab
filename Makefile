@@ -1,4 +1,4 @@
-.PHONY: help check-docker setup-dirs copy-defaults copy-env up down restart logs ps setup clean
+.PHONY: help check-docker setup-dirs copy-defaults copy-env up down restart logs ps setup
 
 # Default target
 help:
@@ -17,9 +17,6 @@ help:
 	@echo "  make restart         - Restart all services"
 	@echo "  make logs            - View logs from all services (Ctrl+C to exit)"
 	@echo "  make ps              - Show status of all services"
-	@echo ""
-	@echo "Maintenance:"
-	@echo "  make clean           - Stop services and remove volumes (WARNING: data loss!)"
 	@echo ""
 
 # Verify Docker installation
@@ -84,11 +81,3 @@ logs:
 # Show service status
 ps:
 	docker compose ps
-
-# Clean up everything (WARNING: removes volumes)
-clean:
-	@echo "WARNING: This will stop services and remove volumes (data loss!)"
-	@echo "Press Ctrl+C to cancel, or wait 5 seconds to continue..."
-	@sleep 5
-	docker compose down -v
-	@echo "✓ Services stopped and volumes removed"
