@@ -1,4 +1,4 @@
-.PHONY: help check-docker setup-dirs copy-defaults up down restart logs ps setup clean
+.PHONY: help check-docker setup-dirs copy-defaults copy-env up down restart logs ps setup clean
 
 # Default target
 help:
@@ -8,7 +8,8 @@ help:
 	@echo "  make check-docker    - Verify Docker and Docker Compose installation"
 	@echo "  make setup-dirs      - Create all required host directories"
 	@echo "  make copy-defaults   - Copy default configuration files"
-	@echo "  make setup           - Run full setup (check-docker, setup-dirs, copy-defaults)"
+	@echo "  make copy-env        - Copy env.template to .env (won't overwrite existing)"
+	@echo "  make setup           - Run full setup (check-docker, setup-dirs, copy-defaults, copy-env)"
 	@echo ""
 	@echo "Docker commands:"
 	@echo "  make up              - Start all services in detached mode"
@@ -42,11 +43,20 @@ copy-defaults:
 	cp -rn defaults/* /docker/appdata/
 	@echo "✓ Default configurations copied (existing files were not overwritten)"
 
+# Copy env.template to .env if it doesn't exist
+copy-env:
+	@if [ -f .env ]; then \
+		echo "✓ .env already exists, skipping (remove it first to regenerate)"; \
+	else \
+		cp env.template .env; \
+		echo "✓ .env created from env.template — edit it with your values"; \
+	fi
+
 # Run complete setup
-setup: check-docker setup-dirs copy-defaults
+setup: check-docker setup-dirs copy-defaults copy-env
 	@echo ""
 	@echo "✓ Setup complete! Next steps:"
-	@echo "  1. Copy env.template to .env and fill in your values"
+	@echo "  1. Edit .env and fill in your values"
 	@echo "  2. Run 'make up' to start the stack"
 
 # Start all services
