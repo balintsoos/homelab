@@ -15,7 +15,6 @@ Containerized home server stack with media management, VPN, DNS filtering, rever
 | [Prowlarr](https://prowlarr.com/) | Indexer management | [:9696](http://localhost:9696) |
 | [qBittorrent](https://www.qbittorrent.org/) | BitTorrent client | [:8080](http://localhost:8080) |
 | [Seerr](https://docs.seerr.dev/) | Media requests | [:5055](http://localhost:5055) |
-| [Homarr](https://homarr.dev/) | Dashboard | [:7575](http://localhost:7575) |
 | [WireGuard Easy](https://github.com/wg-easy/wg-easy) | WireGuard VPN + UI | [:51821](http://localhost:51821) |
 | [Watchtower](https://watchtower.nickfedor.com/) | Automated updates | — |
 | [Beszel](https://beszel.dev/) | Monitoring | [:8090](http://localhost:8090) |
@@ -88,7 +87,6 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
     │   ├── beszel-hub/                    # Beszel monitoring data
     │   ├── cloudflare-ddns/               # Cloudflare DDNS config
     │   ├── homeassistant/                 # Home Assistant configuration
-    │   ├── homarr/                        # Homarr dashboard config
     │   ├── jellyfin/                      # Jellyfin media server data
     │   ├── mosquitto/                     # Mosquitto MQTT broker config
     │   ├── nginx-proxy-manager/           # NPM proxy config

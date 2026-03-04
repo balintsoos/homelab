@@ -91,20 +91,6 @@ services:
       - media
     restart: unless-stopped
 
-  homarr:
-    image: ghcr.io/ajnart/homarr:latest
-    container_name: homarr
-    user: "${PUID}:${PGID}"
-    volumes:
-      - /docker/appdata/homarr/configs:/app/data/configs
-      - /docker/appdata/homarr/icons:/app/public/icons
-      - /docker/appdata/homarr/data:/data
-    ports:
-      - "7575:7575"
-    networks:
-      - proxy
-    restart: unless-stopped
-
   seerr:
     image: ghcr.io/hotio/seerr:latest
     container_name: seerr

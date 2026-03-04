@@ -31,7 +31,7 @@ setup-dirs:
 	@echo "Creating directories for media files and torrents..."
 	mkdir -p /data/{media,torrents}/{movies,tv}
 	@echo "Creating directories for application data..."
-	mkdir -p /docker/appdata/{jellyfin,radarr,sonarr,prowlarr,qbittorrent,homarr/{configs,icons,data},seerr,wg-easy,beszel-hub,adguard/{work,conf},nginx-proxy-manager/{data,letsencrypt},cloudflare-ddns,zigbee2mqtt,mosquitto/{config,data,log},homeassistant}
+	mkdir -p /docker/appdata/{jellyfin,radarr,sonarr,prowlarr,qbittorrent,seerr,wg-easy,beszel-hub,adguard/{work,conf},nginx-proxy-manager/{data,letsencrypt},cloudflare-ddns,zigbee2mqtt,mosquitto/{config,data,log},homeassistant}
 	@echo "✓ All directories created"
 
 # Copy default configuration files
