@@ -3,7 +3,7 @@
   <h1 align="center">homelab</h1>
 </p>
 
-Containerized home server stack with media management, VPN, DNS filtering, reverse proxy, automated updates, and Cloudflare DDNS.
+Containerized self-hosted media automation and smart home stack.
 
 ## Services
 
