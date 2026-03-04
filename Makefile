@@ -39,8 +39,8 @@ setup-dirs:
 # Copy default configuration files
 copy-defaults:
 	@echo "Copying default configuration files..."
-	cp -r defaults/* /docker/appdata/
-	@echo "✓ Default configurations copied"
+	cp -rn defaults/* /docker/appdata/
+	@echo "✓ Default configurations copied (existing files were not overwritten)"
 
 # Run complete setup
 setup: check-docker setup-dirs copy-defaults
