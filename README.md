@@ -1,9 +1,8 @@
 <p align="center">
   <img src="logo.png" alt="homelab" width="200">
   <h1 align="center">homelab</h1>
+  <p align="center">Containerized self-hosted media automation and smart home stack.</p>
 </p>
-
-Containerized self-hosted media automation and smart home stack.
 
 ## Services
 
