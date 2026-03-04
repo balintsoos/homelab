@@ -18,6 +18,9 @@ services:
       - "8096:8096"
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128
+    networks:
+      - proxy
+      - media
     restart: unless-stopped
 
   radarr:
@@ -32,6 +35,9 @@ services:
       - /data:/data
     ports:
       - "7878:7878"
+    networks:
+      - proxy
+      - media
     restart: unless-stopped
 
   sonarr:
@@ -46,6 +52,9 @@ services:
       - /data:/data
     ports:
       - "8989:8989"
+    networks:
+      - proxy
+      - media
     restart: unless-stopped
 
   prowlarr:
@@ -59,6 +68,9 @@ services:
       - /docker/appdata/prowlarr:/config
     ports:
       - "9696:9696"
+    networks:
+      - proxy
+      - media
     restart: unless-stopped
 
   qbittorrent:
@@ -74,6 +86,9 @@ services:
       - /data/torrents:/data/torrents
     ports:
       - "8080:8080"
+    networks:
+      - proxy
+      - media
     restart: unless-stopped
 
   homarr:
@@ -86,6 +101,8 @@ services:
       - /docker/appdata/homarr/data:/data
     ports:
       - "7575:7575"
+    networks:
+      - proxy
     restart: unless-stopped
 
   seerr:
@@ -99,6 +116,9 @@ services:
       - /docker/appdata/seerr:/config
     ports:
       - "5055:5055"
+    networks:
+      - proxy
+      - media
     restart: unless-stopped
 
   wg-easy:
@@ -118,6 +138,8 @@ services:
     sysctls:
       - net.ipv4.ip_forward=1
       - net.ipv4.conf.all.src_valid_mark=1
+    networks:
+      - proxy
     restart: unless-stopped
 
   watchtower:
@@ -139,6 +161,9 @@ services:
       - "8090:8090"
     extra_hosts:
       - host.docker.internal:host-gateway
+    networks:
+      - proxy
+      - monitoring
     restart: unless-stopped
 
   beszel-agent:
@@ -175,6 +200,8 @@ services:
       - "80:80"
       - "443:443"
       - "81:81"
+    networks:
+      - proxy
     restart: unless-stopped
 
   cloudflare-ddns:
@@ -207,6 +234,9 @@ services:
       - ${ZIGBEE_ADAPTER_PATH}:${ZIGBEE_ADAPTER_PATH}
     group_add:
       - ${ZIGBEE_ADAPTER_GROUP}
+    networks:
+      - proxy
+      - iot
     restart: unless-stopped
 
   mosquitto:
@@ -222,6 +252,9 @@ services:
     ports:
       - "1883:1883"
       - "9001:9001"
+    networks:
+      - proxy
+      - iot
     restart: unless-stopped
 
   homeassistant:
@@ -234,4 +267,13 @@ services:
       - /docker/appdata/homeassistant:/config
     ports:
       - "8123:8123"
+    networks:
+      - proxy
+      - iot
     restart: unless-stopped
+
+networks:
+  proxy:
+  media:
+  iot:
+  monitoring:
