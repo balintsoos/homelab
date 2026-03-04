@@ -10,8 +10,8 @@ advanced:
   pan_id: GENERATE
   ext_pan_id: GENERATE
 frontend:
-  enabled: false
+  enabled: true
   port: 8080
 homeassistant:
-  enabled: false
+  enabled: true
 onboarding: true
