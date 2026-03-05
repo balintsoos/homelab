@@ -55,6 +55,12 @@ Watchtower runs automatic updates every day at 04:00 and cleans up old images. Y
 
 Use `make help` to see all available commands for managing services (logs, status, restart, stop, etc.).
 
+### Backup & Restore
+
+Run `make backup` to stop services, create an archive of all configurations, save it locally, and sync to Google Drive via rclone. Run `make restore BACKUP_FILE=/path/to/archive.tar.gz` to restore from a backup.
+
+Configure `BACKUP_LOCAL_DIR` and `BACKUP_RCLONE_REMOTE` in `.env`. Rclone must be installed and configured separately (`rclone config`).
+
 ## Useful links
 
 - https://github.com/Ravencentric/awesome-arr

@@ -1,4 +1,4 @@
-.PHONY: help check-docker setup-dirs copy-defaults copy-env up down restart logs ps setup
+.PHONY: help check-docker setup-dirs copy-defaults copy-env up down restart logs ps setup backup restore
 
 # Default target
 help:
@@ -18,6 +18,10 @@ help:
 	@echo "  make logs            - View logs from all services (Ctrl+C to exit)"
 	@echo "  make ps              - Show status of all services"
 	@echo ""
+	@echo "Backup commands:"
+	@echo "  make backup          - Back up configs and sync to Google Drive via rclone"
+	@echo "  make restore         - Restore from backup (BACKUP_FILE=/path/to/archive.tar.gz)"
+	@echo ""
 
 # Verify Docker installation
 check-docker:
@@ -32,6 +36,7 @@ setup-dirs:
 	mkdir -p /data/{media,torrents}/{movies,tv}
 	@echo "Creating directories for application data..."
 	mkdir -p /docker/appdata/{jellyfin,radarr,sonarr,prowlarr,qbittorrent,seerr,wg-easy,beszel-hub,adguard/{work,conf},nginx-proxy-manager/{data,letsencrypt},cloudflare-ddns,zigbee2mqtt,mosquitto/{config,data,log},homeassistant}
+	mkdir -p $${BACKUP_LOCAL_DIR:-/docker/backups}
 	@echo "✓ All directories created"
 
 # Copy default configuration files
@@ -81,3 +86,38 @@ logs:
 # Show service status
 ps:
 	docker compose ps
+
+# Back up configs and data
+backup:
+	@echo "Starting backup..."
+	@mkdir -p $${BACKUP_LOCAL_DIR:-/docker/backups}
+	docker compose down
+	@TIMESTAMP=$$(date +%Y-%m-%d-%H%M%S); \
+	ARCHIVE="$${BACKUP_LOCAL_DIR:-/docker/backups}/homelab-backup-$$TIMESTAMP.tar.gz"; \
+	tar -czf "$$ARCHIVE" -C / docker/appdata -C $(CURDIR) .env docker-compose.yml; \
+	echo "✓ Archive created: $$ARCHIVE ($$(du -sh "$$ARCHIVE" | cut -f1))"; \
+	if command -v rclone >/dev/null 2>&1 && [ -n "$${BACKUP_RCLONE_REMOTE}" ]; then \
+		rclone copy "$$ARCHIVE" "$${BACKUP_RCLONE_REMOTE}"; \
+		echo "✓ Synced to $${BACKUP_RCLONE_REMOTE}"; \
+	else \
+		echo "⚠ rclone not found or BACKUP_RCLONE_REMOTE not set, skipping remote sync"; \
+	fi
+	docker compose up -d
+	@echo "✓ Backup complete, services restarted"
+
+# Restore from a backup archive
+restore:
+	@if [ -z "$(BACKUP_FILE)" ]; then \
+		echo "Usage: make restore BACKUP_FILE=/path/to/homelab-backup-YYYY-MM-DD-HHMMSS.tar.gz"; \
+		exit 1; \
+	fi
+	@if [ ! -f "$(BACKUP_FILE)" ]; then \
+		echo "Error: $(BACKUP_FILE) not found"; \
+		exit 1; \
+	fi
+	@echo "Restoring from $(BACKUP_FILE)..."
+	-docker compose down
+	tar -xzf "$(BACKUP_FILE)" -C / docker/appdata
+	tar -xzf "$(BACKUP_FILE)" -C $(CURDIR) .env docker-compose.yml
+	docker compose up -d
+	@echo "✓ Restore complete, services started"
