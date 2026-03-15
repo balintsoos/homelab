@@ -24,8 +24,6 @@
 
 - Scheduled backups via cron or a systemd timer instead of manual `make backup`
 - `make update` target to pull latest images and recreate changed containers (complementing Watchtower)
-- `make lint` to validate `docker-compose.yml` and `.env` before deploying
-- Pre-commit hooks or CI to catch compose syntax errors
 
 ## New Services
 

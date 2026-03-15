@@ -1,4 +1,4 @@
-.PHONY: help check-docker setup-dirs copy-defaults copy-env up down restart logs ps setup backup restore
+.PHONY: help check-docker setup-dirs copy-defaults copy-env up down restart logs ps setup lint backup restore
 
 # Default target
 help:
@@ -17,6 +17,9 @@ help:
 	@echo "  make restart         - Restart all services"
 	@echo "  make logs            - View logs from all services (Ctrl+C to exit)"
 	@echo "  make ps              - Show status of all services"
+	@echo ""
+	@echo "Validation commands:"
+	@echo "  make lint            - Validate docker-compose.yml syntax and style"
 	@echo ""
 	@echo "Backup commands:"
 	@echo "  make backup          - Back up configs and sync to Google Drive via rclone"
@@ -86,6 +89,23 @@ logs:
 # Show service status
 ps:
 	docker compose ps
+
+# Validate docker-compose.yml
+lint:
+	@echo "Validating docker-compose.yml..."
+	@if [ ! -f .env ]; then \
+		echo "⚠ .env not found — run 'make copy-env' first (needed for variable interpolation)"; \
+		exit 1; \
+	fi
+	docker compose config -q
+	@echo "✓ Compose file is valid"
+	@if command -v npx >/dev/null 2>&1; then \
+		echo "Running dclint..."; \
+		npx dclint .; \
+		echo "✓ dclint passed"; \
+	else \
+		echo "⚠ npx not found, skipping dclint (install Node.js for style linting)"; \
+	fi
 
 # Back up configs and data
 backup:
