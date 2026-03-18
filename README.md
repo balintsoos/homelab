@@ -50,16 +50,16 @@ Run `make help` to see all available commands.
 
 **Security pattern**: Admin web UIs are bound to `127.0.0.1` (localhost only) and accessed through the reverse proxy (Nginx Proxy Manager) or SSH tunnel. Only public-facing ports (Jellyfin 8096, WireGuard 51820/udp, HTTP/HTTPS 80/443, DNS 53, MQTT 1883/9001) are exposed to the LAN.
 
-**Host paths**:
-- `/docker/appdata/{service}/` - persistent config/data per service
-- `/data/media/{movies,tv}` - media library
-- `/data/torrents/{movies,tv}` - download staging
+**Host paths** (relative to project root):
+- `./appdata/{service}/` - persistent config/data per service
+- `./data/media/{movies,tv}` - media library
+- `./data/torrents/{movies,tv}` - download staging
 
-**Configuration defaults** live in `defaults/` and are copied to `/docker/appdata/` on first setup (`cp -rn`, non-destructive).
+**Configuration defaults** live in `defaults/` and are copied to `./appdata/` on first setup (`cp -rn`, non-destructive).
 
 ## Troubleshooting
 
-**Permission issues:** Verify `PUID`/`PGID` match the owner of `/data` and `/docker/appdata`.
+**Permission issues:** Verify `PUID`/`PGID` match the owner of `./data` and `./appdata`.
 
 **Hardware acceleration:** The current compose maps `/dev/dri` and uses `group_add` for `JELLYFIN_RENDER_GROUP`. See Jellyfin's Intel Quick Sync guide for details.
 
@@ -99,7 +99,7 @@ Configure `BACKUP_LOCAL_DIR` and `BACKUP_RCLONE_REMOTE` in `.env`. Rclone must b
 Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structure/How-to-set-up/Docker/)
 
 ```
-/
+homelab/
 ├── data/                                  # Media and downloads
 │   ├── media/                             # Organized media library
 │   │   ├── movies/                        # Movies for Jellyfin
@@ -108,29 +108,28 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
 │       ├── movies/                        # Movie downloads
 │       └── tv/                            # TV show downloads
 │
-└── docker/                                # Docker stack configuration
-    ├── .env                               # Environment variables
-    ├── compose.yaml                       # Main compose file
-    ├── env.template                       # Environment variables template
-    │
-    ├── appdata/                           # Container persistent data
-    │   ├── adguard/                       # AdGuard Home config
-    │   ├── beszel-hub/                    # Beszel monitoring data
-    │   ├── cloudflare-ddns/               # Cloudflare DDNS config
-    │   ├── homeassistant/                 # Home Assistant configuration
-    │   ├── jellyfin/                      # Jellyfin media server data
-    │   ├── mosquitto/                     # Mosquitto MQTT broker config
-    │   ├── nginx-proxy-manager/           # NPM proxy config
-    │   ├── prowlarr/                      # Prowlarr indexer config
-    │   ├── qbittorrent/                   # qBittorrent settings
-    │   ├── radarr/                        # Radarr movie automation
-    │   ├── seerr/                         # Seerr request data
-    │   ├── sonarr/                        # Sonarr TV automation
-    │   ├── wg-easy/                       # WireGuard VPN config
-    │   └── zigbee2mqtt/                   # Zigbee2MQTT config and database
-    │
-    └── defaults/                          # Default configuration templates
-        ├── cloudflare-ddns/               # Cloudflare DDNS config template
-        ├── mosquitto/                     # Mosquitto MQTT config template
-        └── zigbee2mqtt/                   # Zigbee2MQTT config template
+├── appdata/                               # Container persistent data
+│   ├── adguard/                           # AdGuard Home config
+│   ├── beszel-hub/                        # Beszel monitoring data
+│   ├── cloudflare-ddns/                   # Cloudflare DDNS config
+│   ├── homeassistant/                     # Home Assistant configuration
+│   ├── jellyfin/                          # Jellyfin media server data
+│   ├── mosquitto/                         # Mosquitto MQTT broker config
+│   ├── nginx-proxy-manager/               # NPM proxy config
+│   ├── prowlarr/                          # Prowlarr indexer config
+│   ├── qbittorrent/                       # qBittorrent settings
+│   ├── radarr/                            # Radarr movie automation
+│   ├── seerr/                             # Seerr request data
+│   ├── sonarr/                            # Sonarr TV automation
+│   ├── wg-easy/                           # WireGuard VPN config
+│   └── zigbee2mqtt/                       # Zigbee2MQTT config and database
+│
+├── defaults/                              # Default configuration templates
+│   ├── cloudflare-ddns/                   # Cloudflare DDNS config template
+│   ├── mosquitto/                         # Mosquitto MQTT config template
+│   └── zigbee2mqtt/                       # Zigbee2MQTT config template
+│
+├── .env                                   # Environment variables
+├── compose.yaml                           # Main compose file
+└── env.template                           # Environment variables template
 ```

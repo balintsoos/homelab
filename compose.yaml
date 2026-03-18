@@ -12,8 +12,8 @@ services:
     group_add:
       - ${JELLYFIN_RENDER_GROUP}
     volumes:
-      - /docker/appdata/jellyfin:/config
-      - /data/media:/data/media
+      - ./appdata/jellyfin:/config
+      - ./data/media:/data/media
     ports:
       - "8096:8096"
     devices:
@@ -31,8 +31,8 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /docker/appdata/radarr:/config
-      - /data:/data
+      - ./appdata/radarr:/config
+      - ./data:/data
     ports:
       - "127.0.0.1:7878:7878"
     networks:
@@ -48,8 +48,8 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /docker/appdata/sonarr:/config
-      - /data:/data
+      - ./appdata/sonarr:/config
+      - ./data:/data
     ports:
       - "127.0.0.1:8989:8989"
     networks:
@@ -65,7 +65,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /docker/appdata/prowlarr:/config
+      - ./appdata/prowlarr:/config
     ports:
       - "127.0.0.1:9696:9696"
     networks:
@@ -82,8 +82,8 @@ services:
       - TZ=${TZ}
       - WEBUI_PORTS=8080/tcp,8080/udp
     volumes:
-      - /docker/appdata/qbittorrent:/config
-      - /data/torrents:/data/torrents
+      - ./appdata/qbittorrent:/config
+      - ./data/torrents:/data/torrents
     ports:
       - "127.0.0.1:8080:8080"
     networks:
@@ -99,7 +99,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - /docker/appdata/seerr:/config
+      - ./appdata/seerr:/config
     ports:
       - "127.0.0.1:5055:5055"
     networks:
@@ -114,7 +114,7 @@ services:
       - WG_HOST=${WG_HOST}
       - PASSWORD_HASH=${WG_ADMIN_PASSWORD_HASH}
     volumes:
-      - /docker/appdata/wg-easy:/etc/wireguard
+      - ./appdata/wg-easy:/etc/wireguard
     ports:
       - "51820:51820/udp"
       - "127.0.0.1:51821:51821/tcp"
@@ -142,7 +142,7 @@ services:
     image: henrygd/beszel:latest
     container_name: beszel-hub
     volumes:
-      - /docker/appdata/beszel-hub:/beszel_data
+      - ./appdata/beszel-hub:/beszel_data
     ports:
       - "127.0.0.1:8090:8090"
     extra_hosts:
@@ -167,8 +167,8 @@ services:
     image: adguard/adguardhome:latest
     container_name: adguard
     volumes:
-      - /docker/appdata/adguard/work:/opt/adguardhome/work
-      - /docker/appdata/adguard/conf:/opt/adguardhome/conf
+      - ./appdata/adguard/work:/opt/adguardhome/work
+      - ./appdata/adguard/conf:/opt/adguardhome/conf
     network_mode: host
     ports:
       - "53:53/tcp"
@@ -180,8 +180,8 @@ services:
     image: jc21/nginx-proxy-manager:latest
     container_name: nginx-proxy-manager
     volumes:
-      - /docker/appdata/nginx-proxy-manager/data:/data
-      - /docker/appdata/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+      - ./appdata/nginx-proxy-manager/data:/data
+      - ./appdata/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
     ports:
       - "80:80"
       - "443:443"
@@ -202,7 +202,7 @@ services:
       - CF_DDNS_ZONE_ID=${CF_DDNS_ZONE_ID}
       - CF_DDNS_SUBDOMAIN=${CF_DDNS_SUBDOMAIN}
     volumes:
-      - /docker/appdata/cloudflare-ddns/config.json:/config.json
+      - ./appdata/cloudflare-ddns/config.json:/config.json
     restart: unless-stopped
 
   zigbee2mqtt:
@@ -212,7 +212,7 @@ services:
     environment:
       - TZ=${TZ}
     volumes:
-      - /docker/appdata/zigbee2mqtt:/app/data
+      - ./appdata/zigbee2mqtt:/app/data
       - /run/udev:/run/udev:ro
     ports:
       - "127.0.0.1:8081:8080"
@@ -232,9 +232,9 @@ services:
     environment:
       - TZ=${TZ}
     volumes:
-      - /docker/appdata/mosquitto/config:/mosquitto/config
-      - /docker/appdata/mosquitto/data:/mosquitto/data
-      - /docker/appdata/mosquitto/log:/mosquitto/log
+      - ./appdata/mosquitto/config:/mosquitto/config
+      - ./appdata/mosquitto/data:/mosquitto/data
+      - ./appdata/mosquitto/log:/mosquitto/log
     ports:
       - "1883:1883"
       - "9001:9001"
@@ -250,7 +250,7 @@ services:
     environment:
       - TZ=${TZ}
     volumes:
-      - /docker/appdata/homeassistant:/config
+      - ./appdata/homeassistant:/config
     ports:
       - "127.0.0.1:8123:8123"
     networks:

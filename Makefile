@@ -36,16 +36,16 @@ check-docker:
 # Create all required directories
 setup-dirs:
 	@echo "Creating directories for media files and torrents..."
-	mkdir -p /data/{media,torrents}/{movies,tv}
+	mkdir -p data/{media,torrents}/{movies,tv}
 	@echo "Creating directories for application data..."
-	mkdir -p /docker/appdata/{jellyfin,radarr,sonarr,prowlarr,qbittorrent,seerr,wg-easy,beszel-hub,adguard/{work,conf},nginx-proxy-manager/{data,letsencrypt},cloudflare-ddns,zigbee2mqtt,mosquitto/{config,data,log},homeassistant}
-	mkdir -p $${BACKUP_LOCAL_DIR:-/docker/backups}
+	mkdir -p appdata/{jellyfin,radarr,sonarr,prowlarr,qbittorrent,seerr,wg-easy,beszel-hub,adguard/{work,conf},nginx-proxy-manager/{data,letsencrypt},cloudflare-ddns,zigbee2mqtt,mosquitto/{config,data,log},homeassistant}
+	mkdir -p $${BACKUP_LOCAL_DIR:-./backups}
 	@echo "✓ All directories created"
 
 # Copy default configuration files
 copy-defaults:
 	@echo "Copying default configuration files..."
-	cp -rn defaults/* /docker/appdata/
+	cp -rn defaults/* appdata/
 	@echo "✓ Default configurations copied (existing files were not overwritten)"
 
 # Copy env.template to .env if it doesn't exist
@@ -110,11 +110,11 @@ lint:
 # Back up configs and data
 backup:
 	@echo "Starting backup..."
-	@mkdir -p $${BACKUP_LOCAL_DIR:-/docker/backups}
+	@mkdir -p $${BACKUP_LOCAL_DIR:-./backups}
 	docker compose down
 	@TIMESTAMP=$$(date +%Y-%m-%d-%H%M%S); \
-	ARCHIVE="$${BACKUP_LOCAL_DIR:-/docker/backups}/homelab-backup-$$TIMESTAMP.tar.gz"; \
-	tar -czf "$$ARCHIVE" -C / docker/appdata -C $(CURDIR) .env compose.yaml; \
+	ARCHIVE="$${BACKUP_LOCAL_DIR:-./backups}/homelab-backup-$$TIMESTAMP.tar.gz"; \
+	tar -czf "$$ARCHIVE" -C $(CURDIR) appdata .env compose.yaml; \
 	echo "✓ Archive created: $$ARCHIVE ($$(du -sh "$$ARCHIVE" | cut -f1))"; \
 	if command -v rclone >/dev/null 2>&1 && [ -n "$${BACKUP_RCLONE_REMOTE}" ]; then \
 		rclone copy "$$ARCHIVE" "$${BACKUP_RCLONE_REMOTE}"; \
@@ -137,7 +137,6 @@ restore:
 	fi
 	@echo "Restoring from $(BACKUP_FILE)..."
 	-docker compose down
-	tar -xzf "$(BACKUP_FILE)" -C / docker/appdata
-	tar -xzf "$(BACKUP_FILE)" -C $(CURDIR) .env compose.yaml
+	tar -xzf "$(BACKUP_FILE)" -C $(CURDIR) appdata .env compose.yaml
 	docker compose up -d
 	@echo "✓ Restore complete, services started"

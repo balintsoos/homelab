@@ -7,3 +7,4 @@ Self-hosted Docker Compose stack for media automation, smart home, and infrastru
 - **Environment variables**: all secrets and host-specific values go in `.env` (never committed). Template is `env.template`.
 - **Restart policy**: all services use `restart: unless-stopped`.
 - **Permissions**: `PUID`/`PGID` env vars align container user with host filesystem ownership.
+- **Volume paths**: use `./` relative paths (e.g. `./appdata/`, `./data/`); system mounts like `/var/run/docker.sock` are the only exception.
