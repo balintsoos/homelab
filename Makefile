@@ -19,7 +19,7 @@ help:
 	@echo "  make ps              - Show status of all services"
 	@echo ""
 	@echo "Validation commands:"
-	@echo "  make lint            - Validate docker-compose.yml syntax and style"
+	@echo "  make lint            - Validate compose.yaml syntax and style"
 	@echo ""
 	@echo "Backup commands:"
 	@echo "  make backup          - Back up configs and sync to Google Drive via rclone"
@@ -90,9 +90,9 @@ logs:
 ps:
 	docker compose ps
 
-# Validate docker-compose.yml
+# Validate compose.yaml
 lint:
-	@echo "Validating docker-compose.yml..."
+	@echo "Validating compose.yaml..."
 	@if [ ! -f .env ]; then \
 		echo "⚠ .env not found — run 'make copy-env' first (needed for variable interpolation)"; \
 		exit 1; \
@@ -114,7 +114,7 @@ backup:
 	docker compose down
 	@TIMESTAMP=$$(date +%Y-%m-%d-%H%M%S); \
 	ARCHIVE="$${BACKUP_LOCAL_DIR:-/docker/backups}/homelab-backup-$$TIMESTAMP.tar.gz"; \
-	tar -czf "$$ARCHIVE" -C / docker/appdata -C $(CURDIR) .env docker-compose.yml; \
+	tar -czf "$$ARCHIVE" -C / docker/appdata -C $(CURDIR) .env compose.yaml; \
 	echo "✓ Archive created: $$ARCHIVE ($$(du -sh "$$ARCHIVE" | cut -f1))"; \
 	if command -v rclone >/dev/null 2>&1 && [ -n "$${BACKUP_RCLONE_REMOTE}" ]; then \
 		rclone copy "$$ARCHIVE" "$${BACKUP_RCLONE_REMOTE}"; \
@@ -138,6 +138,6 @@ restore:
 	@echo "Restoring from $(BACKUP_FILE)..."
 	-docker compose down
 	tar -xzf "$(BACKUP_FILE)" -C / docker/appdata
-	tar -xzf "$(BACKUP_FILE)" -C $(CURDIR) .env docker-compose.yml
+	tar -xzf "$(BACKUP_FILE)" -C $(CURDIR) .env compose.yaml
 	docker compose up -d
 	@echo "✓ Restore complete, services started"

@@ -40,7 +40,7 @@ Run `make help` to see all available commands.
 
 ## Architecture
 
-**Single compose file** (`docker-compose.yml`) defines all services as pre-built images.
+**Single compose file** (`compose.yaml`) defines all services as pre-built images.
 
 **Network segmentation** - four isolated Docker networks:
 - `proxy` - services exposed through Nginx Proxy Manager
@@ -63,7 +63,7 @@ Run `make help` to see all available commands.
 
 **Hardware acceleration:** The current compose maps `/dev/dri` and uses `group_add` for `JELLYFIN_RENDER_GROUP`. See Jellyfin's Intel Quick Sync guide for details.
 
-**Port conflicts:** Make sure host ports (e.g., 80/443 for NPM, 53 for AdGuard) are available and not used by other services on your machine or change the port mappings in `docker-compose.yml`.
+**Port conflicts:** Make sure host ports (e.g., 80/443 for NPM, 53 for AdGuard) are available and not used by other services on your machine or change the port mappings in `compose.yaml`.
 
 **DNS:** AdGuard runs in `network_mode: host` and binds to port 53. Conflicts may occur if another DNS service is active on the host.
 
@@ -110,7 +110,7 @@ Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structu
 │
 └── docker/                                # Docker stack configuration
     ├── .env                               # Environment variables
-    ├── docker-compose.yml                 # Main compose file
+    ├── compose.yaml                       # Main compose file
     ├── env.template                       # Environment variables template
     │
     ├── appdata/                           # Container persistent data

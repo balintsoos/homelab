@@ -1,4 +1,4 @@
-Self-hosted Docker Compose stack for media automation, smart home, and infrastructure services. The entire stack is defined in a single `docker-compose.yml` with pre-built images and environment variables sourced from `.env`.
+Self-hosted Docker Compose stack for media automation, smart home, and infrastructure services. The entire stack is defined in a single `compose.yaml` with pre-built images and environment variables sourced from `.env`.
 
 ## Conventions
 

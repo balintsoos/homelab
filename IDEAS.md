@@ -4,7 +4,7 @@
 
 - Encrypt backups (GPG or age) so secrets in `.env` aren't stored in plaintext archives
 - Backup retention policy — automatically prune old local backups (e.g., keep last 7)
-- Health checks in `docker-compose.yml` so Docker can auto-restart unhealthy containers
+- Health checks in `compose.yaml` so Docker can auto-restart unhealthy containers
 - Secrets management — move sensitive values out of `.env` into Docker secrets or a vault
 
 ## Networking & Access
