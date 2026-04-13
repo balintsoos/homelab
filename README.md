@@ -33,7 +33,7 @@
 
 1. Run `make setup` to verify Docker, create directories, copy default configs, and generate `.env`
 2. Edit `.env` and fill in your values
-3. Run `docker compose --profile full up -d` to start all services (or pick specific profiles)
+3. Run `docker compose --profile all up -d` to start all services (or pick specific profiles)
 
 ## Architecture
 
@@ -54,9 +54,9 @@
 | `vpn` | WireGuard Easy, Cloudflare DDNS |
 | `monitoring` | Beszel hub/agent |
 | `iot` | Home Assistant, Zigbee2MQTT, Mosquitto |
-| `full` | All services |
+| `all` | All services |
 
-Start a profile with `docker compose --profile media up -d`. Multiple profiles can be combined: `docker compose --profile media --profile network up -d`. Use `--profile full` to bring up everything.
+Start a profile with `docker compose --profile media up -d`. Multiple profiles can be combined: `docker compose --profile media --profile network up -d`. Use `--profile all` to bring up everything.
 
 **Security pattern**: Admin web UIs are bound to `127.0.0.1` (localhost only) and accessed through the reverse proxy (Nginx Proxy Manager) or SSH tunnel. Only public-facing ports (Jellyfin 8096, WireGuard 51820/udp, HTTP/HTTPS 80/443, DNS 53, MQTT 1883/9001) are exposed to the LAN.
 

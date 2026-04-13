@@ -55,7 +55,7 @@ setup: check-docker setup-dirs copy-defaults copy-env
 	@echo ""
 	@echo "✓ Setup complete! Next steps:"
 	@echo "  1. Edit .env and fill in your values"
-	@echo "  2. Run 'docker compose --profile full up -d' to start all services"
+	@echo "  2. Run 'docker compose --profile all up -d' to start all services"
 
 # Validate compose.yaml
 lint:
