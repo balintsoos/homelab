@@ -4,10 +4,10 @@
 
 ### Container Hardening
 
-- **Read-only root filesystems** — add `read_only: true` to containers that don't need to write outside their volumes (cloudflare-ddns, watchtower, beszel-agent). Combine with `tmpfs` mounts for `/tmp` and `/run` where needed.
+- **Read-only root filesystems** — add `read_only: true` to containers that don't need to write outside their volumes (cloudflare-ddns, beszel-agent). Combine with `tmpfs` mounts for `/tmp` and `/run` where needed.
 - **`no-new-privileges`** — currently only cloudflare-ddns sets `security_opt: no-new-privileges:true`. Apply this to every service to prevent privilege escalation inside containers.
 - **Drop all capabilities by default** — add `cap_drop: [ALL]` to every service and only `cap_add` what's actually needed. Right now only wg-easy declares capabilities; the rest run with Docker's default set which is more than necessary.
-- **Pin image digests** — `:latest` tags are mutable. Pin images to SHA256 digests (e.g. `image: ghcr.io/hotio/radarr@sha256:abc...`) for reproducibility. Watchtower can still check for updates but you control when to roll forward.
+- **Pin image digests** — `:latest` tags are mutable. Pin images to SHA256 digests (e.g. `image: ghcr.io/hotio/radarr@sha256:abc...`) for reproducibility.
 - **Non-root users everywhere** — zigbee2mqtt, mosquitto, and homeassistant use `user:` but the rest rely on PUID/PGID env vars (Hotio convention). Verify each image actually drops to that UID; consider adding explicit `user:` directives where possible.
 - **Limit container resources** — add `mem_limit` and `cpus` to prevent a single runaway container (e.g. Jellyfin transcoding) from starving the host. Even soft limits (`mem_reservation`) help the scheduler.
 
@@ -20,7 +20,6 @@
 
 - **Mosquitto authentication** — the default config has `allow_anonymous true` and listens on port 1883 without TLS. Add username/password auth at minimum; enable TLS for the listener if devices support it.
 - **Restrict MQTT port binding** — port 1883 and 9001 are bound to `0.0.0.0`, exposing MQTT to the entire network. Bind to `127.0.0.1` if only local containers need it, or restrict to the LAN interface.
-- **Watchtower Docker socket** — watchtower mounts the Docker socket read-write, which gives it full root-equivalent access to the host. Mount it `:ro` if the image supports it, or use a socket proxy like Tecnativa/docker-socket-proxy to limit API access.
 - **Beszel-agent Docker socket** — already mounted `:ro` (good), but consider using a socket proxy here too to restrict to only the monitoring endpoints it needs.
 
 ## Networking
@@ -44,10 +43,6 @@
 
 ### Image Management
 
-- **Use Watchtower's official image** — currently using `nickfedor/watchtower:latest` which is a third-party fork. Switch to the official `containrrr/watchtower:latest` unless there's a specific reason for the fork.
-- **Watchtower missing restart policy** — watchtower and cloudflare-ddns are missing `restart: unless-stopped`. Add it for consistency.
-- **Watchtower missing network** — watchtower has no network assignment, which puts it on the default bridge. This is fine functionally but inconsistent with the rest of the stack.
-
 ### Health Checks
 
 - Add `healthcheck:` directives so Docker can detect and restart unresponsive containers:
@@ -63,14 +58,13 @@
 
 - **`depends_on` with health conditions** — add `depends_on:` to enforce startup order: zigbee2mqtt depends on mosquitto, sonarr/radarr depend on prowlarr, seerr depends on sonarr+radarr. Use `condition: service_healthy` once health checks are in place.
 - **Logging configuration** — add `logging:` with `driver: json-file` and `max-size`/`max-file` options to prevent unbounded log growth on disk. e.g. `max-size: "10m"`, `max-file: "3"`.
-- **Labels** — add labels for organization and tooling (e.g. `com.homelab.group=media`) which can be used by monitoring dashboards, Watchtower filters, and backup scripts.
+- **Labels** — add labels for organization and tooling (e.g. `com.homelab.group=media`) which can be used by monitoring dashboards and backup scripts.
 
 ## Monitoring & Observability
 
 - **Uptime Kuma** — lightweight status page and uptime monitor with push/pull checks and multi-channel notifications (Telegram, Discord, email, Slack). Pair with health check endpoints from each service.
 - **Log aggregation** — add Dozzle for a lightweight real-time log viewer, or Loki + Grafana for persistent searchable logs. Dozzle is zero-config; Loki requires more setup but enables alerting on log patterns.
 - **Grafana dashboards** — Beszel handles system metrics, but Grafana could pull data from AdGuard (DNS stats), Home Assistant (sensor history), and qBittorrent (download stats) for a unified view.
-- **Container update notifications** — configure Watchtower to notify-only mode (`WATCHTOWER_NOTIFICATIONS`) so you review updates before they're applied, rather than auto-updating everything at 4am.
 
 ## Automation & DX
 

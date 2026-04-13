@@ -130,16 +130,6 @@ services:
       - vpn
     restart: unless-stopped
 
-  watchtower:
-    image: nickfedor/watchtower:latest
-    container_name: watchtower
-    environment:
-      - TZ=${TZ}
-      - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_SCHEDULE=0 0 4 * * *
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
   beszel-hub:
     image: henrygd/beszel:latest
     container_name: beszel-hub

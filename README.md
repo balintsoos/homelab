@@ -15,7 +15,6 @@
 | [qBittorrent](https://www.qbittorrent.org/) | BitTorrent client | [:8080](http://localhost:8080) |
 | [Seerr](https://docs.seerr.dev/) | Media requests | [:5055](http://localhost:5055) |
 | [WireGuard Easy](https://github.com/wg-easy/wg-easy) | WireGuard VPN + UI | [:51821](http://localhost:51821) |
-| [Watchtower](https://watchtower.nickfedor.com/) | Automated updates | - |
 | [Beszel](https://beszel.dev/) | Monitoring | [:8090](http://localhost:8090) |
 | [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) | DNS filtering | [:3000](http://localhost:3000) |
 | [Nginx Proxy Manager](https://nginxproxymanager.com/) | Reverse proxy + SSL | [:81](http://localhost:81) |
@@ -85,8 +84,6 @@ Start a profile with `docker compose --profile vpn up -d`. Multiple profiles can
 **Zigbee2MQTT not starting:** Verify your Zigbee adapter path with `ls -l /dev/serial/by-id/` or `ls /dev/ttyUSB*` and update `ZIGBEE_ADAPTER_PATH` in `.env`. You may need to add your user to the `dialout` group: `sudo usermod -aG dialout $USER`.
 
 ## Maintenance
-
-Watchtower runs automatic updates every day at 04:00 and cleans up old images. You can disable or change the schedule via environment variables.
 
 Use `make help` to see all available commands for managing services (logs, status, restart, stop, etc.).
 
