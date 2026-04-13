@@ -21,6 +21,9 @@ services:
     networks:
       - proxy
       - media
+    profiles:
+      - media
+      - full
     restart: unless-stopped
 
   radarr:
@@ -38,6 +41,9 @@ services:
     networks:
       - proxy
       - media
+    profiles:
+      - media
+      - full
     restart: unless-stopped
 
   sonarr:
@@ -55,6 +61,9 @@ services:
     networks:
       - proxy
       - media
+    profiles:
+      - media
+      - full
     restart: unless-stopped
 
   prowlarr:
@@ -71,6 +80,9 @@ services:
     networks:
       - proxy
       - media
+    profiles:
+      - media
+      - full
     restart: unless-stopped
 
   qbittorrent:
@@ -89,6 +101,9 @@ services:
     networks:
       - proxy
       - media
+    profiles:
+      - media
+      - full
     restart: unless-stopped
 
   seerr:
@@ -105,6 +120,9 @@ services:
     networks:
       - proxy
       - media
+    profiles:
+      - media
+      - full
     restart: unless-stopped
 
   wg-easy:
@@ -128,6 +146,7 @@ services:
       - proxy
     profiles:
       - vpn
+      - full
     restart: unless-stopped
 
   beszel-hub:
@@ -142,6 +161,9 @@ services:
     networks:
       - proxy
       - monitoring
+    profiles:
+      - monitoring
+      - full
     restart: unless-stopped
 
   beszel-agent:
@@ -153,6 +175,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     network_mode: host
+    profiles:
+      - monitoring
+      - full
     restart: unless-stopped
 
   adguard:
@@ -166,6 +191,9 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       - "3000:3000/tcp"
+    profiles:
+      - network
+      - full
     restart: unless-stopped
 
   nginx-proxy-manager:
@@ -180,6 +208,9 @@ services:
       - "127.0.0.1:81:81"
     networks:
       - proxy
+    profiles:
+      - network
+      - full
     restart: unless-stopped
 
   cloudflare-ddns:
@@ -197,6 +228,7 @@ services:
       - ./appdata/cloudflare-ddns/config.json:/config.json
     profiles:
       - vpn
+      - full
     restart: unless-stopped
 
   zigbee2mqtt:
@@ -219,6 +251,7 @@ services:
       - iot
     profiles:
       - iot
+      - full
     restart: unless-stopped
 
   mosquitto:
@@ -239,6 +272,7 @@ services:
       - iot
     profiles:
       - iot
+      - full
     restart: unless-stopped
 
   homeassistant:
@@ -256,6 +290,7 @@ services:
       - iot
     profiles:
       - iot
+      - full
     restart: unless-stopped
 
 networks:

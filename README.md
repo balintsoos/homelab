@@ -33,9 +33,7 @@
 
 1. Run `make setup` to verify Docker, create directories, copy default configs, and generate `.env`
 2. Edit `.env` and fill in your values
-3. Run `make up` to start the stack
-
-Run `make help` to see all available commands.
+3. Run `docker compose --profile full up -d` to start all services (or pick specific profiles)
 
 ## Architecture
 
@@ -47,14 +45,18 @@ Run `make help` to see all available commands.
 - `iot` - Zigbee2MQTT, Mosquitto (MQTT broker), Home Assistant
 - `monitoring` - Beszel hub/agent
 
-**Profiles** - optional service groups that are excluded from `docker compose up` by default:
+**Profiles** - service groups activated with `--profile`:
 
 | Profile | Services |
 |---------|----------|
+| `media` | Jellyfin, Radarr, Sonarr, Prowlarr, qBittorrent, Seerr |
+| `network` | Nginx Proxy Manager, AdGuard Home |
 | `vpn` | WireGuard Easy, Cloudflare DDNS |
+| `monitoring` | Beszel hub/agent |
 | `iot` | Home Assistant, Zigbee2MQTT, Mosquitto |
+| `full` | All services |
 
-Start a profile with `docker compose --profile vpn up -d`. Multiple profiles can be combined: `docker compose --profile vpn --profile iot up -d`.
+Start a profile with `docker compose --profile media up -d`. Multiple profiles can be combined: `docker compose --profile media --profile network up -d`. Use `--profile full` to bring up everything.
 
 **Security pattern**: Admin web UIs are bound to `127.0.0.1` (localhost only) and accessed through the reverse proxy (Nginx Proxy Manager) or SSH tunnel. Only public-facing ports (Jellyfin 8096, WireGuard 51820/udp, HTTP/HTTPS 80/443, DNS 53, MQTT 1883/9001) are exposed to the LAN.
 
@@ -85,7 +87,7 @@ Start a profile with `docker compose --profile vpn up -d`. Multiple profiles can
 
 ## Maintenance
 
-Use `make help` to see all available commands for managing services (logs, status, restart, stop, etc.).
+Run `make help` to see available setup, validation, and backup commands. Use `docker compose --profile <name>` directly for starting, stopping, and managing services.
 
 ### Backup & Restore
 

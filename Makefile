@@ -1,4 +1,4 @@
-.PHONY: help check-docker setup-dirs copy-defaults copy-env up down restart logs ps setup lint backup restore
+.PHONY: help check-docker setup-dirs copy-defaults copy-env setup lint backup restore
 
 # Default target
 help:
@@ -10,13 +10,6 @@ help:
 	@echo "  make copy-defaults   - Copy default configuration files"
 	@echo "  make copy-env        - Copy env.template to .env (won't overwrite existing)"
 	@echo "  make setup           - Run full setup (check-docker, setup-dirs, copy-defaults, copy-env)"
-	@echo ""
-	@echo "Docker commands:"
-	@echo "  make up              - Start all services in detached mode"
-	@echo "  make down            - Stop and remove all services"
-	@echo "  make restart         - Restart all services"
-	@echo "  make logs            - View logs from all services (Ctrl+C to exit)"
-	@echo "  make ps              - Show status of all services"
 	@echo ""
 	@echo "Validation commands:"
 	@echo "  make lint            - Validate compose.yaml syntax and style"
@@ -62,33 +55,7 @@ setup: check-docker setup-dirs copy-defaults copy-env
 	@echo ""
 	@echo "✓ Setup complete! Next steps:"
 	@echo "  1. Edit .env and fill in your values"
-	@echo "  2. Run 'make up' to start the stack"
-
-# Start all services
-up:
-	@echo "Starting all services..."
-	docker compose up -d
-	@echo "✓ Services started"
-
-# Stop all services
-down:
-	@echo "Stopping all services..."
-	docker compose down
-	@echo "✓ Services stopped"
-
-# Restart all services
-restart:
-	@echo "Restarting all services..."
-	docker compose restart
-	@echo "✓ Services restarted"
-
-# View logs
-logs:
-	docker compose logs -f
-
-# Show service status
-ps:
-	docker compose ps
+	@echo "  2. Run 'docker compose --profile full up -d' to start all services"
 
 # Validate compose.yaml
 lint:
