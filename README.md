@@ -48,6 +48,15 @@ Run `make help` to see all available commands.
 - `iot` - Zigbee2MQTT, Mosquitto (MQTT broker), Home Assistant
 - `monitoring` - Beszel hub/agent
 
+**Profiles** - optional service groups that are excluded from `docker compose up` by default:
+
+| Profile | Services |
+|---------|----------|
+| `vpn` | WireGuard Easy, Cloudflare DDNS |
+| `iot` | Home Assistant, Zigbee2MQTT, Mosquitto |
+
+Start a profile with `docker compose --profile vpn up -d`. Multiple profiles can be combined: `docker compose --profile vpn --profile iot up -d`.
+
 **Security pattern**: Admin web UIs are bound to `127.0.0.1` (localhost only) and accessed through the reverse proxy (Nginx Proxy Manager) or SSH tunnel. Only public-facing ports (Jellyfin 8096, WireGuard 51820/udp, HTTP/HTTPS 80/443, DNS 53, MQTT 1883/9001) are exposed to the LAN.
 
 **Host paths** (relative to project root):

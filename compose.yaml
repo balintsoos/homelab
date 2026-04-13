@@ -126,6 +126,8 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
     networks:
       - proxy
+    profiles:
+      - vpn
     restart: unless-stopped
 
   watchtower:
@@ -203,6 +205,8 @@ services:
       - CF_DDNS_SUBDOMAIN=${CF_DDNS_SUBDOMAIN}
     volumes:
       - ./appdata/cloudflare-ddns/config.json:/config.json
+    profiles:
+      - vpn
     restart: unless-stopped
 
   zigbee2mqtt:
@@ -223,6 +227,8 @@ services:
     networks:
       - proxy
       - iot
+    profiles:
+      - iot
     restart: unless-stopped
 
   mosquitto:
@@ -241,6 +247,8 @@ services:
     networks:
       - proxy
       - iot
+    profiles:
+      - iot
     restart: unless-stopped
 
   homeassistant:
@@ -255,6 +263,8 @@ services:
       - "127.0.0.1:8123:8123"
     networks:
       - proxy
+      - iot
+    profiles:
       - iot
     restart: unless-stopped
 
