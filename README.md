@@ -106,7 +106,7 @@ Configure `BACKUP_LOCAL_DIR` and `BACKUP_RCLONE_REMOTE` in `.env`. Rclone must b
 
 ## Folder structure
 
-Inspired by this handy [guide](https://trash-guides.info/File-and-Folder-Structure/How-to-set-up/Docker/)
+This follows the [TRaSH Guides hardlink-friendly structure](https://trash-guides.info/File-and-Folder-Structure/How-to-set-up/Docker/) so Radarr/Sonarr can hardlink instead of copy.
 
 ```
 homelab/
