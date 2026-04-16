@@ -185,9 +185,9 @@ services:
       - ./appdata/beszel/socket:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock:ro
     cap_add:
-      - CAP_PERFMON
+      - PERFMON
     devices:
-      - /dev/dri/card0:/dev/dri/card0
+      - /dev/dri:/dev/dri
     network_mode: host
     profiles:
       - monitoring
