@@ -31,7 +31,7 @@ setup-dirs:
 	@echo "Creating directories for media files and torrents..."
 	mkdir -p data/{media,torrents}/{movies,tv}
 	@echo "Creating directories for application data..."
-	mkdir -p appdata/{jellyfin,radarr,sonarr,prowlarr,qbittorrent,seerr,wg-easy,beszel-hub,adguard/{work,conf},nginx-proxy-manager/{data,letsencrypt},cloudflare-ddns,zigbee2mqtt,mosquitto/{config,data,log},homeassistant}
+	mkdir -p appdata/{jellyfin,radarr,sonarr,prowlarr,qbittorrent,seerr,wg-easy,beszel/{hub,agent,socket},adguard/{work,conf},nginx-proxy-manager/{data,letsencrypt},cloudflare-ddns,zigbee2mqtt,mosquitto/{config,data,log},homeassistant}
 	mkdir -p $${BACKUP_LOCAL_DIR:-./backups}
 	@echo "✓ All directories created"
 

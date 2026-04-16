@@ -118,7 +118,10 @@ homelab/
 │
 ├── appdata/                               # Container persistent data
 │   ├── adguard/                           # AdGuard Home config
-│   ├── beszel-hub/                        # Beszel monitoring data
+│   ├── beszel/                            # Beszel monitoring
+│   │   ├── hub/                           # Beszel hub data
+│   │   ├── agent/                         # Beszel agent data
+│   │   └── socket/                        # Shared Unix socket
 │   ├── cloudflare-ddns/                   # Cloudflare DDNS config
 │   ├── homeassistant/                     # Home Assistant configuration
 │   ├── jellyfin/                          # Jellyfin media server data

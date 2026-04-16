@@ -150,14 +150,17 @@ services:
     restart: unless-stopped
 
   beszel-hub:
-    image: henrygd/beszel:latest
+    image: henrygd/beszel:0.18.7
     container_name: beszel-hub
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
-      - ./appdata/beszel-hub:/beszel_data
+      - ./appdata/beszel/hub:/beszel_data
+      - ./appdata/beszel/socket:/beszel_socket
     ports:
       - "127.0.0.1:8090:8090"
-    extra_hosts:
-      - host.docker.internal:host-gateway
     networks:
       - proxy
       - monitoring
@@ -167,12 +170,19 @@ services:
     restart: unless-stopped
 
   beszel-agent:
-    image: henrygd/beszel-agent:latest
+    image: henrygd/beszel-agent:0.18.7-alpine
     container_name: beszel-agent
     environment:
-      PORT: 45876
-      KEY: ${BESZEL_KEY}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - LISTEN=/beszel_socket/beszel.sock
+      - KEY=${BESZEL_KEY}
+      - TOKEN=${BESZEL_TOKEN}
+      - HUB_URL=http://localhost:8090
     volumes:
+      - ./appdata/beszel/agent:/var/lib/beszel-agent
+      - ./appdata/beszel/socket:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock:ro
     network_mode: host
     profiles:
