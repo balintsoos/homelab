@@ -83,6 +83,8 @@ Start a profile with `docker compose --profile media up -d`. Multiple profiles c
 
 **WireGuard admin login:** Ensure `WG_ADMIN_PASSWORD_HASH` is valid; consult wg-easy documentation for generating hashes.
 
+**Intel GPU monitoring showing errors or 0% in Beszel:** The host kernel must allow perf events. Check `cat /proc/sys/kernel/perf_event_paranoid` — if it's above 2, lower it with `sudo sysctl kernel.perf_event_paranoid=2`. To persist across reboots: `echo "kernel.perf_event_paranoid=2" | sudo tee /etc/sysctl.d/99-perf.conf`.
+
 **Zigbee2MQTT not starting:** Verify your Zigbee adapter path with `ls -l /dev/serial/by-id/` or `ls /dev/ttyUSB*` and update `ZIGBEE_ADAPTER_PATH` in `.env`. You may need to add your user to the `dialout` group: `sudo usermod -aG dialout $USER`.
 
 ## Maintenance
