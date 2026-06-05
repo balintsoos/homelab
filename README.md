@@ -14,6 +14,7 @@
 | [Prowlarr](https://prowlarr.com/) | Indexer management | [:9696](http://localhost:9696) |
 | [qBittorrent](https://www.qbittorrent.org/) | BitTorrent client | [:8080](http://localhost:8080) |
 | [Seerr](https://docs.seerr.dev/) | Media requests | [:5055](http://localhost:5055) |
+| [m4sport](https://github.com/balintsoos/m4sport) | M4 Sport stream proxy | [:8060](http://localhost:8060) |
 | [WireGuard Easy](https://github.com/wg-easy/wg-easy) | WireGuard VPN + UI | [:51821](http://localhost:51821) |
 | [Beszel](https://beszel.dev/) | Monitoring | [:8090](http://localhost:8090) |
 | [AdGuard Home](https://adguard.com/en/adguard-home/overview.html) | DNS filtering | [:3000](http://localhost:3000) |

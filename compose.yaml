@@ -125,6 +125,22 @@ services:
       - all
     restart: unless-stopped
 
+  m4sport:
+    image: ghcr.io/balintsoos/m4sport@sha256:11736e8549dddc9d3547f18a25b77d496c25504f6d7c2b9268d0836b3f879dcc
+    container_name: m4sport
+    environment:
+      - TZ=${TZ}
+      - PORT=8060
+    ports:
+      - "127.0.0.1:8060:8060"
+    networks:
+      - proxy
+      - media
+    profiles:
+      - media
+      - all
+    restart: unless-stopped
+
   wg-easy:
     image: ghcr.io/wg-easy/wg-easy:latest
     container_name: wg-easy
@@ -304,22 +320,6 @@ services:
       - iot
     profiles:
       - iot
-      - all
-    restart: unless-stopped
-
-  m4sport:
-    image: ghcr.io/balintsoos/m4sport@sha256:11736e8549dddc9d3547f18a25b77d496c25504f6d7c2b9268d0836b3f879dcc
-    container_name: m4sport
-    environment:
-      - PORT=8060
-      - TZ=${TZ}
-    ports:
-      - "127.0.0.1:8060:8060"
-    networks:
-      - proxy
-      - media
-    profiles:
-      - media
       - all
     restart: unless-stopped
 
