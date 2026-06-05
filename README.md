@@ -59,7 +59,7 @@
 
 Start a profile with `docker compose --profile media up -d`. Multiple profiles can be combined: `docker compose --profile media --profile network up -d`. Use `--profile all` to bring up everything.
 
-**Security pattern**: Admin web UIs are bound to `127.0.0.1` (localhost only) and accessed through the reverse proxy (Nginx Proxy Manager) or SSH tunnel. Only public-facing ports (Jellyfin 8096, WireGuard 51820/udp, HTTP/HTTPS 80/443, DNS 53, MQTT 1883/9001) are exposed to the LAN.
+**Security pattern**: Admin web UIs are bound to `127.0.0.1` (localhost only) and accessed through the reverse proxy (Nginx Proxy Manager) or SSH tunnel. Only public-facing ports (WireGuard 51820/udp, HTTP/HTTPS 80/443, DNS 53, MQTT 1883/9001) are exposed to the LAN.
 
 **Host paths** (relative to project root):
 - `./appdata/{service}/` - persistent config/data per service
