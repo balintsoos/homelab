@@ -42,7 +42,7 @@
 
 **Network segmentation** - four isolated Docker networks:
 - `proxy` - services exposed through Nginx Proxy Manager
-- `media` - Arr stack (Radarr, Sonarr, Prowlarr), qBittorrent, Jellyfin, Seerr
+- `media` - Arr stack (Radarr, Sonarr, Prowlarr), qBittorrent, Jellyfin, Seerr, m4sport
 - `iot` - Zigbee2MQTT, Mosquitto (MQTT broker), Home Assistant
 - `monitoring` - Beszel hub/agent
 
@@ -50,7 +50,7 @@
 
 | Profile | Services |
 |---------|----------|
-| `media` | Jellyfin, Radarr, Sonarr, Prowlarr, qBittorrent, Seerr |
+| `media` | Jellyfin, Radarr, Sonarr, Prowlarr, qBittorrent, Seerr, m4sport |
 | `network` | Nginx Proxy Manager, AdGuard Home |
 | `vpn` | WireGuard Easy, Cloudflare DDNS |
 | `monitoring` | Beszel hub/agent |
