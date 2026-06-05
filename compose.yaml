@@ -150,7 +150,7 @@ services:
     restart: unless-stopped
 
   beszel-hub:
-    image: henrygd/beszel@sha256:5b583633750cae65a9c1ab399c4c0eed229666ad74e103801724e3bc465338b8
+    image: ghcr.io/henrygd/beszel/beszel:0.18.7@sha256:2a06a179f48338db1dcdf266757145c946fb7de443948eaf190acfb0eae478f1
     container_name: beszel-hub
     environment:
       - PUID=${PUID}
@@ -170,7 +170,7 @@ services:
     restart: unless-stopped
 
   beszel-agent:
-    image: henrygd/beszel-agent-intel@sha256:7a5ee1cfbd8faf95d10a965bd1cb9e2208b2ce731bb3ef5b00020e1985ffd824
+    image: ghcr.io/henrygd/beszel/beszel-agent-intel:0.18.7@sha256:8b99977d14e14f9a43c15fe820d5fe8bc995fabc648743da71c6859b934d7fa8
     container_name: beszel-agent
     environment:
       - PUID=${PUID}
