@@ -81,7 +81,7 @@ backup:
 	docker compose down
 	@TIMESTAMP=$$(date +%Y-%m-%d-%H%M%S); \
 	ARCHIVE="$${BACKUP_LOCAL_DIR:-./backups}/homelab-backup-$$TIMESTAMP.tar.gz"; \
-	tar -czf "$$ARCHIVE" -C $(CURDIR) appdata .env compose.yaml; \
+	tar -czf "$$ARCHIVE" -C $(CURDIR) appdata .env compose.yaml compose; \
 	echo "✓ Archive created: $$ARCHIVE ($$(du -sh "$$ARCHIVE" | cut -f1))"; \
 	if command -v rclone >/dev/null 2>&1 && [ -n "$${BACKUP_RCLONE_REMOTE}" ]; then \
 		rclone copy "$$ARCHIVE" "$${BACKUP_RCLONE_REMOTE}"; \
@@ -104,6 +104,6 @@ restore:
 	fi
 	@echo "Restoring from $(BACKUP_FILE)..."
 	-docker compose down
-	tar -xzf "$(BACKUP_FILE)" -C $(CURDIR) appdata .env compose.yaml
+	tar -xzf "$(BACKUP_FILE)" -C $(CURDIR) appdata .env compose.yaml compose
 	docker compose up -d
 	@echo "✓ Restore complete, services started"

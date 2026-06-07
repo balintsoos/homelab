@@ -38,7 +38,7 @@
 
 ## Architecture
 
-**Single compose file** (`compose.yaml`) defines all services as pre-built images.
+**Compose layout** — a small root `compose.yaml` (`name:` + `include:` only) pulls in per-profile module files under `compose/`: `media.yaml`, `network.yaml`, `vpn.yaml`, `monitoring.yaml`, `iot.yaml`. Each module is independently valid (`docker compose -f compose/media.yaml config -q`) and Compose merges them into a single project at runtime, so commands like `docker compose --profile media up -d` work unchanged.
 
 **Network segmentation** - four isolated Docker networks:
 - `proxy` - services exposed through Nginx Proxy Manager
@@ -74,7 +74,7 @@ Start a profile with `docker compose --profile media up -d`. Multiple profiles c
 
 **Hardware acceleration:** The current compose maps `/dev/dri` and uses `group_add` for `JELLYFIN_RENDER_GROUP`. See Jellyfin's Intel Quick Sync guide for details.
 
-**Port conflicts:** Make sure host ports (e.g., 80/443 for NPM, 53 for AdGuard) are available and not used by other services on your machine or change the port mappings in `compose.yaml`.
+**Port conflicts:** Make sure host ports (e.g., 80/443 for NPM, 53 for AdGuard) are available and not used by other services on your machine or change the port mappings in the matching `compose/<profile>.yaml`.
 
 **DNS:** AdGuard runs in `network_mode: host` and binds to port 53. Conflicts may occur if another DNS service is active on the host.
 
@@ -143,7 +143,14 @@ homelab/
 │   ├── mosquitto/                         # Mosquitto MQTT config template
 │   └── zigbee2mqtt/                       # Zigbee2MQTT config template
 │
+├── compose/                               # Per-profile compose modules
+│   ├── media.yaml                         # Jellyfin, Arr stack, qBittorrent, Seerr, m4sport
+│   ├── network.yaml                       # Nginx Proxy Manager, AdGuard
+│   ├── vpn.yaml                           # WireGuard Easy, Cloudflare DDNS
+│   ├── monitoring.yaml                    # Beszel hub/agent
+│   └── iot.yaml                           # Zigbee2MQTT, Mosquitto, Home Assistant
+│
 ├── .env                                   # Environment variables
-├── compose.yaml                           # Main compose file
+├── compose.yaml                           # Root entry point (includes compose/*.yaml)
 └── env.template                           # Environment variables template
 ```

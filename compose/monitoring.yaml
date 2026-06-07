@@ -1,0 +1,50 @@
+---
+services:
+  beszel-hub:
+    image: ghcr.io/henrygd/beszel/beszel:0.18.7@sha256:2a06a179f48338db1dcdf266757145c946fb7de443948eaf190acfb0eae478f1
+    container_name: beszel-hub
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./appdata/beszel/hub:/beszel_data
+      - ./appdata/beszel/socket:/beszel_socket
+    ports:
+      - "127.0.0.1:8090:8090"
+    networks:
+      - proxy
+      - monitoring
+    profiles:
+      - monitoring
+      - all
+    restart: unless-stopped
+
+  beszel-agent:
+    image: ghcr.io/henrygd/beszel/beszel-agent-intel:0.18.7@sha256:8b99977d14e14f9a43c15fe820d5fe8bc995fabc648743da71c6859b934d7fa8
+    container_name: beszel-agent
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - LISTEN=/beszel_socket/beszel.sock
+      - KEY=${BESZEL_KEY}
+      - TOKEN=${BESZEL_TOKEN}
+      - HUB_URL=http://localhost:8090
+    volumes:
+      - ./appdata/beszel/agent:/var/lib/beszel-agent
+      - ./appdata/beszel/socket:/beszel_socket
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    cap_add:
+      - PERFMON
+    devices:
+      - /dev/dri:/dev/dri
+    network_mode: host
+    profiles:
+      - monitoring
+      - all
+    restart: unless-stopped
+
+networks:
+  proxy:
+  monitoring:
