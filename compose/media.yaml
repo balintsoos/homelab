@@ -1,7 +1,7 @@
 ---
 services:
   jellyfin:
-    image: ghcr.io/hotio/jellyfin:latest
+    image: ghcr.io/hotio/jellyfin:release-10.11.8@sha256:cd1fecff98ef0170b9368a51c5f8f15a447fca924c74bc3174ca9f6413334fbe
     container_name: jellyfin
     environment:
       - PUID=${PUID}
