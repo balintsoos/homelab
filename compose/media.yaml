@@ -45,7 +45,7 @@ services:
     restart: unless-stopped
 
   sonarr:
-    image: ghcr.io/hotio/sonarr:latest
+    image: ghcr.io/hotio/sonarr:release-76eaaa7@sha256:c6ac233d0a686d67395743cc4f4ab2bc24f58d627c4eb6b24bf2d2aba258c92c
     container_name: sonarr
     environment:
       - PUID=${PUID}
