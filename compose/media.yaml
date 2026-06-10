@@ -105,7 +105,7 @@ services:
     restart: unless-stopped
 
   seerr:
-    image: ghcr.io/hotio/seerr:latest
+    image: ghcr.io/hotio/seerr:release-61e4a12@sha256:288644407a9f2a79e2702f9156e57425c1b338291f152436025d00d75208a255
     container_name: seerr
     environment:
       - PUID=${PUID}
