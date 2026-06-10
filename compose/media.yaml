@@ -124,7 +124,7 @@ services:
     restart: unless-stopped
 
   m4sport:
-    image: ghcr.io/balintsoos/m4sport@sha256:11736e8549dddc9d3547f18a25b77d496c25504f6d7c2b9268d0836b3f879dcc
+    image: ghcr.io/balintsoos/m4sport:92dc083a5bebbc9f59d103287e9fba3f9e5e81e2@sha256:8d118ea24e350decc8ad4262df74478766aa6d8a3604db6775e2ecfa09ced9bd
     container_name: m4sport
     environment:
       - TZ=${TZ}
