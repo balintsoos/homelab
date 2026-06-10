@@ -65,7 +65,7 @@ services:
     restart: unless-stopped
 
   prowlarr:
-    image: ghcr.io/hotio/prowlarr:latest
+    image: ghcr.io/hotio/prowlarr:release-d35d5b9@sha256:a1646d766c4d41c773c30aaa837affd1e534650debfe08d82ea2836a5baaaa12
     container_name: prowlarr
     environment:
       - PUID=${PUID}
