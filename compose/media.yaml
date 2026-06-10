@@ -84,7 +84,7 @@ services:
     restart: unless-stopped
 
   qbittorrent:
-    image: ghcr.io/hotio/qbittorrent:latest
+    image: ghcr.io/hotio/qbittorrent:release-2794f42@sha256:ff3a6ea9d1fd3f122afc7a7e2005f500ed3154167cf4cbdbacf42333b7f7573b
     container_name: qbittorrent
     environment:
       - PUID=${PUID}
