@@ -19,6 +19,10 @@ services:
   nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:2.14.0@sha256:a142e4adf94638fe4f2a28fa1bae87ca590e11010bf1ec5babf8b06d54fb1d1c
     container_name: nginx-proxy-manager
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
     volumes:
       - ./appdata/nginx-proxy-manager/data:/data
       - ./appdata/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
