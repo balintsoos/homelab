@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
 
   nginx-proxy-manager:
-    image: jc21/nginx-proxy-manager:latest
+    image: jc21/nginx-proxy-manager:2.14.0@sha256:a142e4adf94638fe4f2a28fa1bae87ca590e11010bf1ec5babf8b06d54fb1d1c
     container_name: nginx-proxy-manager
     volumes:
       - ./appdata/nginx-proxy-manager/data:/data
